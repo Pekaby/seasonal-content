@@ -30,7 +30,6 @@ class HookManager extends Singleton
      * @return void
      */
     public function doAction($action, ...$args):void {
-        var_dump($action);
         if(is_string($action)){
             do_action($action, ...$args);
             return;

@@ -29,11 +29,14 @@ class Plugin extends Singleton
         $this->hookManager = ( null !== $hookManager ) ? $hookManager : HookManager::getInstance();
         $this->addonManager = AddonManager::getInstance();
 
+        $this->hookManager->doAction(DTO\Hook::set(
+            "SeasonalContent/beforeLoadAddons"
+        ), $this->hookManager);
+        
         $this->hookManager->registerActions(DTO\Hook::set(
             'SeasonalContent/loadAddons',
             [$this->addonManager, 'loadAddons']
         ));
-
 
         $this->hookManager->registerActions(
                                             DTO\Hook::set('plugins_loaded', [TypeController::class, 'init']),
@@ -57,6 +60,7 @@ class Plugin extends Singleton
                                                 DTO\Hook::set('plugins_loaded', [$this, 'admin']));
         }
 
+        // var_dump($this->addonManager->getAddons());
         // ( is_admin() ) ? $this->initAdmin() : $this->initUser();
     }
 
@@ -113,6 +117,17 @@ class Plugin extends Singleton
                 [(new \SeasonalContent\Templates\Categories()), 'render']
             )
         );
+
+        $menu->addSubAdminMenu(
+            \SeasonalContent\Components\Menu\SubMenuItem::set(
+                SECOEL_PREFIX,
+                    __('Addons', 'seasonal-content'),
+                    __('Addons', 'seasonal-content'),
+                    'manage_options',
+                    SECOEL_PREFIX.'addons',
+                    [(new \SeasonalContent\Templates\Addons()), 'render']
+                )
+            );
 
         $category_component = new \SeasonalContent\Components\Category\CategoryComponent();
 

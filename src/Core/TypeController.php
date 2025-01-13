@@ -43,7 +43,7 @@ class TypeController {
         self::registerType('SectionBackground', \SeasonalContent\Types\SectionBackground::class);
         self::registerType('ColumnBackground', \SeasonalContent\Types\ColumnBackground::class);
         self::registerType('TextEditor', \SeasonalContent\Types\TextEditor::class);
-        self::registerType('Carusel', \SeasonalContent\Types\Carusel::class);
-        self::registerType('Slides', \SeasonalContent\Types\Slides::class);
+        // self::registerType('Carusel', \SeasonalContent\Types\Carusel::class);
+        // self::registerType('Slides', \SeasonalContent\Types\Slides::class);
     }
 }
