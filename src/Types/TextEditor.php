@@ -44,7 +44,7 @@ class TextEditor implements Type
 
     public function changeElement($element, \SeasonalContent\Models\Category $category):object {
         $property = SECOEL_PREFIX . $category->slug . self::CONTROL_NAME;
-        if(property_exists($element->settings, $property)) {
+        if( property_exists($element->settings, $property) && !empty(@$element->settings->$property) ) {
             $element->settings->editor = $element->settings->$property;
         }
         return $element;

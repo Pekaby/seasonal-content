@@ -5,7 +5,7 @@ Plugin URI: https://panoramaecohotel.ru/
 Description: Change content by seasons
 Author: Mikhail
 Author URI: https://t.me/pekaby/
-Version: 2.2
+Version: 2.3
 Requires at least: 6.7
 Tested up to: 6.6
 Requires PHP: 7.4

@@ -21,7 +21,6 @@ class Carusel implements Type
     {
         if(empty($this->categories)) return;
 
-        // if ( 'section' === $element->get_name() && 'section_background' === $section_id ) {
             $element->start_controls_section(
                 SECOEL_PREFIX . SELF::SETTINGS_KEY,
                 [
@@ -39,13 +38,12 @@ class Carusel implements Type
                     );
                 }
                 $element->end_controls_section();
-            // }
     }
 
 
     public function changeElement($element, \SeasonalContent\Models\Category $category):object {
         $property = SECOEL_PREFIX . $category->slug . self::CONTROL_NAME;
-        if(property_exists($element->settings, $property)) {
+        if( property_exists($element->settings, $property) && !empty(@$element->settings->$property) ) {
             $element->settings->carousel = $element->settings->$property;
         }
         return $element;

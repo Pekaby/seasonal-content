@@ -189,11 +189,6 @@ class Plugin extends Singleton
 
     public function loadTranslations() {
         $loaded = load_plugin_textdomain('seasonal-content', false, 'seasonal-content/languages');
-        if (!$loaded) {
-            error_log('Failed to load text domain: seasonal-content');
-        } else {
-            error_log('Text domain loaded successfully.');
-        }
     }
 
 }
