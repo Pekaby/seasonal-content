@@ -1,22 +1,27 @@
-# Copyright (C) 2024 Mikhail
-# This file is distributed under the same license as the Elementor seasonal content plugin.
+# Copyright (C) 2025 Mikhail
+# This file is distributed under the same license as the Seasonal Content plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Elementor seasonal content 2.0\n"
+"Project-Id-Version: Seasonal Content 2.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/seasonal-content\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-12-30T10:45:16+00:00\n"
+"POT-Creation-Date: 2025-01-19T15:55:26+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: seasonal-content\n"
 
 #. Plugin Name of the plugin
 #: Seasonal-content.php
-msgid "Elementor seasonal content"
+#: src/Types/Carusel.php:28
+#: src/Types/ColumnBackground.php:27
+#: src/Types/SectionBackground.php:28
+#: src/Types/Slides.php:28
+#: src/Types/TextEditor.php:29
+msgid "Seasonal Content"
 msgstr ""
 
 #. Plugin URI of the plugin
@@ -39,6 +44,41 @@ msgstr ""
 msgid "https://t.me/pekaby/"
 msgstr ""
 
+#: assets/view/addons_managment.php:123
+#: src/Core/Plugin.php:124
+#: src/Core/Plugin.php:125
+msgid "Addons"
+msgstr ""
+
+#: assets/view/addons_managment.php:126
+msgid "Improve plugin functionality with this amazing addons!"
+msgstr ""
+
+#: assets/view/addons_managment.php:145
+#: assets/view/categories_managment.php:250
+#: src/Types/Slides.php:38
+msgid "Title"
+msgstr ""
+
+#: assets/view/addons_managment.php:146
+#: src/Types/Slides.php:71
+#: src/Types/Slides.php:73
+msgid "Description"
+msgstr ""
+
+#: assets/view/addons_managment.php:147
+msgid "Version"
+msgstr ""
+
+#: assets/view/addons_managment.php:148
+#: assets/view/categories_managment.php:144
+msgid "Action"
+msgstr ""
+
+#: assets/view/addons_managment.php:158
+msgid "Buy"
+msgstr ""
+
 #: assets/view/categories_managment.php:130
 msgid "Categories"
 msgstr ""
@@ -59,34 +99,17 @@ msgstr ""
 msgid "End"
 msgstr ""
 
-#: assets/view/categories_managment.php:144
-msgid "Action"
-msgstr ""
-
 #: assets/view/categories_managment.php:220
 msgid "Save"
 msgstr ""
 
-#: assets/view/categories_managment.php:250
-#: src/Types/Slides.php:38
-msgid "Title"
-msgstr ""
-
-#: src/Core/Plugin.php:74
+#: src/Core/Plugin.php:79
 msgid "You should install and enable Elementor before work with Seasonal Content!"
 msgstr ""
 
-#: src/Core/Plugin.php:107
-#: src/Core/Plugin.php:108
+#: src/Core/Plugin.php:113
+#: src/Core/Plugin.php:114
 msgid "Manage Categories"
-msgstr ""
-
-#: src/Types/Carusel.php:29
-#: src/Types/ColumnBackground.php:27
-#: src/Types/SectionBackground.php:28
-#: src/Types/Slides.php:28
-#: src/Types/TextEditor.php:29
-msgid "Seasonal Content"
 msgstr ""
 
 #: src/Types/Slides.php:40
@@ -107,9 +130,4 @@ msgstr ""
 
 #: src/Types/Slides.php:64
 msgid "Click Here"
-msgstr ""
-
-#: src/Types/Slides.php:71
-#: src/Types/Slides.php:73
-msgid "Description"
 msgstr ""
