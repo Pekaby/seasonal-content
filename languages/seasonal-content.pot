@@ -26,7 +26,7 @@ msgstr ""
 
 #. Plugin URI of the plugin
 #: Seasonal-content.php
-msgid "https://panoramaecohotel.ru/"
+msgid "https://t.me/Pekaby/"
 msgstr ""
 
 #. Description of the plugin
