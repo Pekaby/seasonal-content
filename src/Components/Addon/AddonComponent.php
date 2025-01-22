@@ -34,11 +34,9 @@ class AddonComponent extends \SeasonalContent\Core\Singleton implements Componen
                 $this->installed[$slug] = $addon::getTitle();
             }
         }
-        // return $this->installed;
     }
 
     private function getActivatedAddons()  {
-        // var_dump(get_option( 'active_plugins' ));
         $activatedPlugins = get_option( 'active_plugins' );
         foreach ($activatedPlugins as $plugin) {
             $pluginSlug = explode('/', $plugin)[0];
@@ -46,8 +44,6 @@ class AddonComponent extends \SeasonalContent\Core\Singleton implements Componen
                 $this->activatedAddons[$pluginSlug] = $this->installed[$pluginSlug];
             }
         }
-        // var_dump($this->activatedAddons);
-
     }
 
     private function loadAddonsInformation() {
@@ -68,8 +64,8 @@ class AddonComponent extends \SeasonalContent\Core\Singleton implements Componen
 
     private function getAviablesAddons() {
         return $this->aviableAddons = [
-            'seasonal-content-sliders' => [
-                'title' => 'Seasonal Content Addon - Sliders!',
+            'seasonal-content-addon-slides' => [
+                'title' => 'Seasonal Content Addon - Slides!',
                 'version' => '0.1',
                 'description' => 'Allows you change sliders content',
                 'url' => 'https://t.me/Pekaby'
