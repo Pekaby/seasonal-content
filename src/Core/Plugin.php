@@ -25,6 +25,7 @@ class Plugin extends Singleton
     public function run(HookManager $hookManager = null):void {
         register_activation_hook(SECOEL_INDEX, [Install::class, 'install']);
         register_deactivation_hook(SECOEL_INDEX, [Install::class, 'deactivate']);
+        register_uninstall_hook( SECOEL_INDEX, [Install::class, 'uninstall']);
 
         $this->hookManager = ( null !== $hookManager ) ? $hookManager : HookManager::getInstance();
         $this->addonManager = AddonManager::getInstance();

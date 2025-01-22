@@ -19,6 +19,17 @@ class Install
         Cron::deleteScheduleEvent();
     }
 
+
+    public function uninstall() {
+        global $wpdb;
+
+        delete_option(SECOEL_PREFIX . 'current_season');
+        delete_option(SECOEL_PREFIX . 'installed');
+        delete_option(SECOEL_PREFIX . 'elementor_main_data_backups');
+        $wpdb->query("DROP TABLE `wp_secoel_categories`");
+        $wpdb->query("DELETE FROM `wp_options` WHERE `option_name` LIKE 'secoel_%_current_season';");
+    }
+
     private static function createDb():bool{
         global $wpdb;
 
