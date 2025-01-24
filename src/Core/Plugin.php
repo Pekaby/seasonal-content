@@ -12,7 +12,13 @@ class Plugin extends Singleton
      *
      * @var HookManager
      */
-    private $hookManager;
+    private $hookManager;  
+
+    /**
+     * addonManager
+     *
+     * @var AddonManager
+     */
     private $addonManager;
     
     
@@ -54,47 +60,59 @@ class Plugin extends Singleton
 
 
         if(is_admin()){
-            // $this->hookManager->registerActions(DTO\Hook::set('plugins_loaded', [$this, 'admin']), DTO\Hook::set('plugins_loaded', [TypeController::class, 'init']));
             $this->hookManager->registerActions(
                                          DTO\Hook::set('init', [$this, 'loadTranslations']),
                                                 DTO\Hook::set('init', [$this, 'cronInit']),
-                                                DTO\Hook::set('plugins_loaded', [$this, 'admin']));
+                                                DTO\Hook::set('plugins_loaded', [$this, 'admin']),
+                                                DTO\Hook::set('admin_enqueue_scripts', [$this, 'enqueueScrips'])
+                                                );
         }
-
-        // var_dump($this->addonManager->getAddons());
-        // ( is_admin() ) ? $this->initAdmin() : $this->initUser();
     }
-
-
-    public function cronInit()
+    
+    /**
+     * Enqueue scripts and define js variables
+     *
+     * @param  string $hook
+     * @return void
+     */
+    public function enqueueScrips($hook): void {
+        if($hook !== 'seasonal-content_page_secoel_categories') {
+            return;
+        }
+        wp_enqueue_script( SECOEL_PREFIX . 'categories', plugin_dir_url(SECOEL_DIR ) . 'seasonal-content/assets/js/admin-categories.js', [], '2.0', ['strategy' => 'defer']);
+        wp_localize_script(SECOEL_PREFIX . 'categories', SECOEL_PREFIX . 'security', [
+            'nonce' => wp_create_nonce(SECOEL_PREFIX . 'security'),
+            'translation' => [
+                'title' => esc_html__('Title', 'seasonal-content'),
+            ]
+        ]);
+    }
+    
+    /**
+     * Init Cron
+     *
+     * @return void
+     */
+    public function cronInit(): void
     {
         $cron = Cron::getInstance();
         Cron::checkScheduleEvent();
         
     }
     
-
+    
+    /**
+     * Method for executing in WordPress admin
+     *
+     * @return void
+     */
     public function admin():void {
         if(!$this->hookManager->didAction('elementor/loaded')){
             $this->hookManager->registerActions(DTO\Hook::set(SECOEL_PREFIX . 'elementor_disabled', [Drawer::class, 'adminNotice'], 10, 1));
             $this->hookManager->doAction(DTO\Hook::set(SECOEL_PREFIX . 'elementor_disabled'), __('You should install and enable Elementor before work with Seasonal Content!', 'seasonal-content') );
             return;
         }
-        // add_action('all', function($hook_name) {
-        //     if (strpos($hook_name, 'elementor') !== false) {
-        //         error_log($hook_name);
-        //     }
-        // });
-        // add_action('elementor/loaded', function() {
-        //     error_log('Elementor loaded');
-        // });
 
-        // add_action('elementor/element/before_section_render', function($element) {
-        //     error_log('Widget: ' . $element->get_name());
-        //     error_log('Current Section: ' . $element->get_current_section());
-        // });
-        // var_dump(__('Category', 'seasonal-content'));
-        // exit();
         // menu
         $menu = new \SeasonalContent\Components\Menu\AdminMenuComponent();
         $menu->addAdminMenu(
@@ -162,23 +180,22 @@ class Plugin extends Singleton
                 }
             )
         );
-        // var_dump(TypeController::getRegisteredTypes());
-        // exit();
+
         if(@$_GET['action'] == 'elementor'){
             $elementorComponent = \SeasonalContent\Components\Elementor\ElementorComponent::getInstance();
-        // $elementorComponent->setCategoryComponent($category_component);
             $elementorComponent->setTypes(TypeController::getRegisteredTypes());
             $elementorComponent->setCategories(\SeasonalContent\Models\Category::getAllCategories());
             $elementorComponent->registerTypes();
         }
 
-        // $menu->registerMenus();
-
-
     }
-
+    
+    /**
+     * Execute in Frontend side of site
+     *
+     * @return void
+     */
     public function frontend():void {
-        // var_dump($this->addonManager->getAddons());
         $contentComponent = \SeasonalContent\Components\Content\ContentComponent::getInstance();
         $this->hookManager->registerActions(
             DTO\Hook::set(
@@ -187,8 +204,13 @@ class Plugin extends Singleton
             ),
         );
     }
-
-    public function loadTranslations() {
+    
+    /**
+     * loadTranslations
+     *
+     * @return void
+     */
+    public function loadTranslations():void {
         $loaded = load_plugin_textdomain('seasonal-content', false, 'seasonal-content/languages');
     }
 

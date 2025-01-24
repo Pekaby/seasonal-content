@@ -24,19 +24,23 @@ class Ajax extends Singleton
     }
 
     public function requestHandler(): void {
-            if (!$_POST || !isset($_POST['method'], $_POST['data']) || !is_array($_POST['data'])) {
-                wp_send_json_error(['message' => 'Invalid request'], 400);
-                return;
-            }
-        
-            if (method_exists($this, $_POST['method'])) {
-                $method = htmlspecialchars($_POST['method']);
-                $this->$method($_POST['data']);
-                wp_send_json_success(['message' => 'Method executed successfully']);
-                return;
-            }
-        
-            wp_send_json_error(['message' => 'Method not found'], 400);
+        if (!isset($_POST['nonce']) || !wp_verify_nonce(@$_POST['nonce'], 'secoel_security')) {
+            wp_send_json_error(['message' => 'Invalid Nonce'], 400);
+            return;
+        }
+        if (!$_POST || !isset($_POST['method'], $_POST['data']) || !is_array($_POST['data'])) {
+            wp_send_json_error(['message' => 'Invalid request'], 400);
+            return;
+        }
+    
+        if (method_exists($this, $_POST['method'])) {
+            $method = htmlspecialchars($_POST['method']);
+            $this->$method($_POST['data']);
+            wp_send_json_success(['message' => 'Method executed successfully']);
+            return;
+        }
+    
+        wp_send_json_error(['message' => 'Method not found'], 400);
     }
 
     public function saveCategories($categories){
