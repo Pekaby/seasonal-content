@@ -33,7 +33,7 @@ class Install
     private static function createDb():bool{
         global $wpdb;
 
-        return $wpdb->query("CREATE TABLE IF NOT EXISTS `" . $wpdb->dbname . "`.`". $wpdb->prefix . SECOEL_PREFIX . 'categories' . "` ( `id` BIGINT NOT NULL AUTO_INCREMENT , `title` VARCHAR(32) NOT NULL , `slug` VARCHAR(32) NOT NULL , `date_start` DATE NOT NULL , `date_end` DATE NOT NULL , `created_by` BIGINT NOT NULL , `updated_at` DATETIME on update CURRENT_TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP , `created_at` DATETIME NULL DEFAULT CURRENT_TIMESTAMP , PRIMARY KEY (`id`)) ENGINE = InnoDB;");
+        return $wpdb->query("CREATE TABLE IF NOT EXISTS `" . $wpdb->dbname . "`.`". $wpdb->prefix . SECOEL_PREFIX . 'categories' . "` ( `id` BIGINT NOT NULL AUTO_INCREMENT , `title` VARCHAR(32) NOT NULL , `slug` VARCHAR(32) NOT NULL , `date_start` DATE NOT NULL , `date_end` DATE NOT NULL , `created_by` BIGINT NOT NULL , `updated_at` DATETIME NULL DEFAULT NULL , `created_at` DATETIME NULL DEFAULT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;");
     }
 
     private static function registerCron() : bool {
