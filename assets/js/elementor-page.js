@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
             data:{
                 action: "season_handler",
                 method: "restoreMainBackup",
+                nonce: secoel_security.nonce,
                 data: [urlParams.get('post')]
             },
             success: (r) => {
@@ -39,6 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
             data:{
                 action: "season_handler",
                 method: "updateSeasonContent",
+                nonce: secoel_security.nonce,
                 data: [urlParams.get('post')]
             },
             success: (r) => {
@@ -67,6 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
             data:{
                 action: "season_handler",
                 method: "updateMainBackup",
+                nonce: secoel_security.nonce,
                 data: [urlParams.get('post')]
             },
             success: (r) => {

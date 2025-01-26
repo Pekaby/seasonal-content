@@ -177,6 +177,9 @@ class Plugin extends Singleton
                         '1.0',
                         true
                     );
+                    wp_localize_script(SECOEL_PREFIX . 'elementor_action_handler', SECOEL_PREFIX . 'security', [
+                        'nonce' => wp_create_nonce(SECOEL_PREFIX . 'security'),
+                    ]);
                 }
             )
         );
