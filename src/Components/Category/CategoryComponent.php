@@ -51,14 +51,11 @@ class CategoryComponent implements \SeasonalContent\Components\Component
         update_option(SECOEL_PREFIX . "current_season", 0);
         $this->activeCategory = 0;
         foreach ($this->categories as $category) {
-            // if($this->activeCategory != 0 ) return;
-            $today = new \DateTime('now');
-            $today = \DateTime::createFromFormat('Y-m-d', '1970-'.$today->format('m-d'));
-            
-
             $year_start = 1970;
             $year_end = ( (new \DateTime($category->date_start))->format('m') == 12 && (new \DateTime($category->date_end))->format('m') != 12 ) ? ($year_start + 1) : $year_start;
 
+            $today = new \DateTime('now');
+            $today = \DateTime::createFromFormat('Y-m-d', $year_end . '-' .$today->format('m-d'));
 
             $date_start = \DateTime::createFromFormat('Y-m-d', $year_start . '-'.(new \DateTime($category->date_start))->format('m-d'));
             $date_end = \DateTime::createFromFormat('Y-m-d', $year_end . '-'.(new \DateTime($category->date_end))->format('m-d'));
