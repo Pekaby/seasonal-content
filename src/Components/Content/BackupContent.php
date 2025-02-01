@@ -5,9 +5,6 @@ namespace SeasonalContent\Components\Content;
 class BackupContent
 {
     public static function hasMainBackup($postId):bool {
-        // $backup = get_post_meta($postId, SECOEL_PREFIX.'_elementor_data_backup');
-        // return (!$backup) ? false : true;
-
         $backups = get_option(SECOEL_PREFIX.'elementor_main_data_backups', false);
         if(!$backups) return false;
         $backups = json_decode($backups);
@@ -49,7 +46,6 @@ class BackupContent
 
         $backupId = wp_insert_post( (array) $postData);
         if(!is_int($backupId) || !$backupId) throw new \SeasonalContent\Core\Exceptions\BackupException('Cannot create Main backup');
-        $elementor_data = json_encode(ContentChanger::escape( json_decode($elementor_data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
 
         update_post_meta($backupId, '_elementor_data', $elementor_data);
         $prefix = bin2hex(random_bytes(10));
@@ -83,15 +79,7 @@ class BackupContent
 
         if(!is_int($backupId) || !$backupId) throw new \SeasonalContent\Core\Exceptions\BackupException('Cannot create Main backup');
 
-        $elementor_data = json_encode(ContentChanger::escape( json_decode($elementor_data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
-
         update_post_meta($backup->postId, '_elementor_data', $elementor_data);
-        // $prefix = bin2hex(random_bytes(10));
-        // $backup = \SeasonalContent\Models\Backup::init()->setPostId($backupId)
-        //                                             ->setParentId($postId)
-        //                                             ->setName("_main_backup_".$prefix)
-        //                                             ->setCreatedAt(date("Y-m-d H:i:s"))
-        //                                             ->();
 
         return $backup;  
     }
@@ -99,12 +87,6 @@ class BackupContent
 
     public static function createBackup($postId): \SeasonalContent\Models\Backup {
         $elementor_data = get_post_meta($postId, '_elementor_data', true);
-        // $prefix = bin2hex(random_bytes(10));
-        // update_post_meta($postId, "_".SECOEL_PREFIX."elementor_data_backup_{$prefix}", $elementor_data);
-        // $backup = \SeasonalContent\Models\Backup::init()->setPostId($postId)
-        //                                                 ->setName("_".SECOEL_PREFIX."elementor_data_backup_{$prefix}")
-        //                                                 ->setCreatedAt(date("Y-m-d H:i:s"))
-        //                                                 ->save();
 
         $postData = get_post($postId);
 
@@ -144,7 +126,6 @@ class BackupContent
         $postData->post_title = $backupPost->post_title;
         $backuped = wp_update_post($postData);
 
-        $backupElementor = json_encode(ContentChanger::escape( json_decode($backupElementor, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
         update_post_meta($backup->parentId, '_elementor_data', $backupElementor);
         if(!$backuped) throw new \SeasonalContent\Core\Exceptions\BackupException('Can\'t load backup' . PHP_EOL);
 

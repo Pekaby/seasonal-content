@@ -39,16 +39,13 @@ class ContentComponent extends \SeasonalContent\Core\Singleton implements Compon
     }
 
     private function getPageSeason() {
+        if(isset($this->pageSeason)) return $this->pageSeason;
         $this->pageSeason = get_option(SECOEL_PREFIX.$this->postId."_current_season", 0);
         return $this->pageSeason;
     }
 
     private function changeNeed():bool {
-        // $this->currentSeason = get_option(SECOEL_PREFIX.'current_season', 0);
-        // $this->pageSeason = get_option(SECOEL_PREFIX.$this->postId."_current_season", 0);
         $this->getPageSeason();
-        // var_dump($this->currentSeason);
-        // var_dump($this->pageSeason);
         return ($this->currentSeason == $this->pageSeason) ? false : true;
     }
 
@@ -64,8 +61,9 @@ class ContentComponent extends \SeasonalContent\Core\Singleton implements Compon
         $elementor_data = get_post_meta($this->postId, '_elementor_data', true);
 
         ContentChanger::setTypes(\SeasonalContent\Core\TypeController::getRegisteredTypes());
-        $changed_elementor_data = ContentChanger::change(json_decode($elementor_data), $category);
-        update_post_meta($this->postId, '_elementor_data', json_encode($changed_elementor_data, JSON_UNESCAPED_UNICODE));
+        $changed_elementor_data = ContentChanger::change(wp_unslash(json_decode($elementor_data)), $category);
+        
+        update_post_meta($this->postId, '_elementor_data', wp_slash(json_encode($changed_elementor_data, JSON_UNESCAPED_UNICODE)));
 
         update_option(SECOEL_PREFIX.$this->postId."_current_season", $category->id, true);
     }

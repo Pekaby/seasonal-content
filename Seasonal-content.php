@@ -5,7 +5,7 @@ Plugin URI: http://t.me/Pekaby
 Description: Seasonal Content allows you to change content by your own categories
 Author: Mikhail
 Author URI: https://t.me/pekaby/
-Version: 2.5
+Version: 2.5.1
 Requires at least: 6.7
 Tested up to: 6.7
 Requires PHP: 7.4

@@ -20,7 +20,7 @@ class ContentChanger
                     $element = $type_instance->changeElement($element, $category);
                 }
             }
-            $element->settings = self::escape($element->settings);
+            // $element->settings = self::escape($element->settings);
 
             if(isset($element->elements) && !empty($element->elements)){
                 $element->elements = self::change($element->elements, $category);
