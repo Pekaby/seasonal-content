@@ -33,7 +33,7 @@ class BackupContent
     }
 
     public static function createMainBackup($postId): \SeasonalContent\Models\Backup {
-        $elementor_data = get_post_meta($postId, '_elementor_data', true);
+        $elementor_data = wp_unslash( get_post_meta($postId, '_elementor_data', true) );
 
         $postData = get_post($postId);
 
@@ -47,7 +47,7 @@ class BackupContent
         $backupId = wp_insert_post( (array) $postData);
         if(!is_int($backupId) || !$backupId) throw new \SeasonalContent\Core\Exceptions\BackupException('Cannot create Main backup');
 
-        update_post_meta($backupId, '_elementor_data', $elementor_data);
+        update_post_meta($backupId, '_elementor_data', wp_slash( $elementor_data ));
         $prefix = bin2hex(random_bytes(10));
         $backup = \SeasonalContent\Models\Backup::init()->setPostId($backupId)
                                                     ->setParentId($postId)
@@ -65,6 +65,8 @@ class BackupContent
         if(!isset($backup->postId)) throw new \SeasonalContent\Core\Exceptions\BackupException('Can\'t update main backup. Main backup didn\'t find.'); 
 
         $elementor_data = get_post_meta($postId, '_elementor_data', true);
+        $file = fopen(SECOEL_DIR . 'inputUpdateMainBackup.json', 'w');
+        fwrite($file, $elementor_data);
 
         $postData = get_post($postId);
 
@@ -79,7 +81,10 @@ class BackupContent
 
         if(!is_int($backupId) || !$backupId) throw new \SeasonalContent\Core\Exceptions\BackupException('Cannot create Main backup');
 
-        update_post_meta($backup->postId, '_elementor_data', $elementor_data);
+        update_post_meta($backup->postId, '_elementor_data', wp_slash( $elementor_data ));
+
+        $file = fopen(SECOEL_DIR . 'outputUpdateBackup.json', 'w');
+        fwrite($file, wp_slash( $elementor_data ));
 
         return $backup;  
     }
@@ -120,16 +125,21 @@ class BackupContent
         $backupPost = get_post($backup->postId);
         $backupElementor = get_post_meta($backup->postId, '_elementor_data', true);
 
+        $file = fopen(SECOEL_DIR . 'inputLoadBackup.json', 'w');
+        fwrite($file, $backupElementor);
+
         $postData = get_post($postId);
 
         $postData->post_content = $backupPost->post_content;
         $postData->post_title = $backupPost->post_title;
         $backuped = wp_update_post($postData);
 
-        update_post_meta($backup->parentId, '_elementor_data', $backupElementor);
+        update_post_meta($backup->parentId, '_elementor_data', wp_slash( $backupElementor ));
+        $file = fopen(SECOEL_DIR . 'outputLoadBackup.json', 'w');
+        fwrite($file, wp_slash($backupElementor));
         if(!$backuped) throw new \SeasonalContent\Core\Exceptions\BackupException('Can\'t load backup' . PHP_EOL);
 
-        update_option(SECOEL_PREFIX.$postId."_current_season", 0);
+        // update_option(SECOEL_PREFIX.$postId."_current_season", 0); // it should be current season
     }
 
 
