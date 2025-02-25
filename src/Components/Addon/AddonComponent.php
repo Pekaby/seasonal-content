@@ -67,21 +67,9 @@ class AddonComponent extends \SeasonalContent\Core\Singleton implements Componen
             'seasonal-content-addon-slides' => [
                 'title' => 'Seasonal Content Addon - Slides!',
                 'version' => '0.1',
-                'description' => 'Allows you change sliders content',
+                'description' => 'Easily manage and update content for sliders and carousels based on seasonal categories. This addon allows you to modify text, images, and other content within sliders and carousels automatically, keeping your website fresh and up-to-date with minimal effort.',
                 'url' => 'https://t.me/Pekaby'
             ],
-            'seasonal-content-ultimate-backgrounds' => [
-                'title' => 'Seasonal Content Addon - Ultimate Backgrounds!',
-                'version' => '3.1',
-                'description' => 'Allows you change backgrounds',
-                'url' => 'https://t.me/Pekaby',
-            ],
-            'seasonal-content-titles' => [
-                'title' => 'Seasonal Content Addon - Titles!',
-                'version' => '1.1',
-                'description' => 'Allows you change backgrounds',
-                'url' => 'https://t.me/Pekaby',
-            ]
         ];
     }
 
