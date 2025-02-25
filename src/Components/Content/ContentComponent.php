@@ -68,6 +68,22 @@ class ContentComponent extends \SeasonalContent\Core\Singleton implements Compon
         update_option(SECOEL_PREFIX.$this->postId."_current_season", $category->id, true);
     }
 
+    public static function saveData($postId) {
+        if( !get_option(SECOEL_PREFIX . 'update_backup_settings', true) ) {
+            return;
+        }
+        if(!BackupContent::hasMainBackup($postId)) {
+            BackupContent::createMainBackup($postId);
+        }
+        $backup = BackupContent::getMainBackup($postId);
+        if(!$backup) return;
+
+        $backupData = get_post_meta($backup->postId, '_elementor_data', true);
+        $currentData = get_post_meta( $postId, '_elementor_data', true );
+        $backupWithNewSettings = ContentChanger::changeSettings( wp_unslash(json_decode($currentData, true)), wp_unslash(json_decode($backupData, true)));
+    
+        update_post_meta($backup->postId, '_elementor_data', wp_slash(json_encode($backupWithNewSettings, JSON_UNESCAPED_UNICODE)));
+    }
 
     public static function getMainBackups() {
         return BackupContent::getAllMainBackups();

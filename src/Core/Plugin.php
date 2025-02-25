@@ -181,6 +181,10 @@ class Plugin extends Singleton
                         'nonce' => wp_create_nonce(SECOEL_PREFIX . 'security'),
                     ]);
                 }
+            ),
+            DTO\Hook::set(
+                'elementor/editor/after_save',
+                [\SeasonalContent\Components\Content\ContentComponent::class, 'saveData']
             )
         );
 

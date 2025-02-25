@@ -29,6 +29,27 @@ class ContentChanger
         return $elementorContent;
     }
 
+    public static function changeSettings($elementorContent, $backupContent) {
+        foreach($elementorContent as $contentKey => &$contentData) {
+            if(array_key_exists( 'settings', $contentData ) && array_key_exists( 'settings', $backupContent[$contentKey] )) {
+                
+                foreach ($contentData['settings'] as $param => $value) {
+                    if(strncmp($param, SECOEL_PREFIX, strlen(SECOEL_PREFIX)) === 0) {
+                        $backupContent[$contentKey]['settings'][$param] = $value;
+                    }
+                }
+
+            }
+
+            if( ( is_array($contentData['elements']) && !empty($contentData['elements']) )
+                && ( is_array($backupContent[$contentKey]['elements']) && !empty($backupContent[$contentKey]['elements']) )) {
+                    $backupContent[$contentKey]['elements'] = self::changeSettings($contentData['elements'], $backupContent[$contentKey]['elements']);
+            }
+        }
+
+        return $backupContent;
+    }
+
     public static function escape($object) {
         if( empty($object) ) return $object;
 
