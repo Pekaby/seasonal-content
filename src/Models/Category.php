@@ -19,7 +19,9 @@ class Category
 
     public static function getAllCategories():array {
         global $wpdb;
-        $categories_raw = $wpdb->get_results( "SELECT * FROM `{$wpdb->prefix}".SECOEL_PREFIX."categories`" );
+        $talbeName = esc_sql($wpdb->prefix . SECOEL_PREFIX . 'categories');
+        $sql = "SELECT * FROM `{$talbeName}`";
+        $categories_raw = $wpdb->get_results( $sql );
 
         if(!$categories_raw) return [];
 
@@ -41,7 +43,12 @@ class Category
 
     public static function getCategory($id):self {
         global $wpdb;
-        $category = $wpdb->get_results( $wpdb->prepare("SELECT * FROM `{$wpdb->prefix}".SECOEL_PREFIX."categories` WHERE `id` = %d", $id));
+        $category = $wpdb->get_results( 
+            $wpdb->prepare(
+                "SELECT * FROM `{$wpdb->prefix}" . SECOEL_PREFIX . "categories` WHERE `id` = %d",
+                $id
+            )
+        );
         if(!$category) return self::init();
 
         return self::init()->setTitle($category[0]->title)

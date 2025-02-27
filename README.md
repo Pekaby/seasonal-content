@@ -1,6 +1,8 @@
 
 # Seasonal Content – Elementor Addon
 
+## Description
+
 **Seasonal Content** is a lightweight (for **end users** (visitors of the site)) Elementor addon that allows you to change content dynamically based on custom seasonal categories with specific dates. Enhance your WordPress site by automatically displaying different text, headings, or background images when a selected date arrives.
 
 ## Features
@@ -45,7 +47,7 @@
 
 ## Requirements
 
-- WordPress 6.7+
+- WordPress 6.7+ (Tested up to: 6.7.2)
 - Elementor 3.0+
 - PHP 7.4+ (Recommended PHP 8.0 +)
 

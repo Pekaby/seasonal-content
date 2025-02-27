@@ -14,7 +14,6 @@ class Addons implements Template
         }
         $addons = \SeasonalContent\Components\Addon\AddonComponent::getInstance();
         $data = $addons->getAddonsInformation();
-        // var_dump($data);
         \SeasonalContent\Core\Drawer::loadDocument($this->path, $data);
     }
 }

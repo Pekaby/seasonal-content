@@ -138,9 +138,6 @@ class BackupContent
         $backupPost = get_post($backup->postId);
         $backupElementor = get_post_meta($backup->postId, '_elementor_data', true);
 
-        $file = fopen(SECOEL_DIR . 'inputLoadBackup.json', 'w');
-        fwrite($file, $backupElementor);
-
         $postData = get_post($postId);
 
         $postData->post_content = $backupPost->post_content;

@@ -49,7 +49,6 @@ class HookManager extends Singleton
      */
     public function registerActions(...$hooks):void {
         foreach ($hooks as $hook) {
-            // var_dump($hook);
             if(!$hook instanceof \SeasonalContent\DTO\Hook && !$hook instanceof \SeasonalContent\DTO\Filter) {
                 throw new \InvalidArgumentException("Hook should be DTO\\Hook or DTO\\Filter.");
             }

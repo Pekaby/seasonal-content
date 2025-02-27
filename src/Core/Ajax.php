@@ -24,7 +24,9 @@ class Ajax extends Singleton
     }
 
     public function requestHandler(): void {
-        if (!isset($_POST['nonce']) || !wp_verify_nonce(@$_POST['nonce'], 'secoel_security')) {
+        $nonce = isset($_POST['nonce']) ? sanitize_text_field(wp_unslash($_POST['nonce'])) : '';
+
+        if (!isset($nonce) || !wp_verify_nonce($nonce, 'secoel_security')) {
             wp_send_json_error(['message' => 'Invalid Nonce'], 400);
             return;
         }
@@ -33,9 +35,9 @@ class Ajax extends Singleton
             return;
         }
     
-        if (method_exists($this, $_POST['method'])) {
-            $method = htmlspecialchars($_POST['method']);
-            $this->$method($_POST['data']);
+        if (method_exists($this, sanitize_text_field(wp_unslash($_POST['method'])))) {
+            $method = sanitize_text_field(wp_unslash($_POST['method']));
+            $this->$method(sanitize_text_field(wp_unslash($_POST['data'])));
             wp_send_json_success(['message' => 'Method executed successfully']);
             return;
         }

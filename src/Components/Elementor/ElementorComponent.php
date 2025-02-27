@@ -8,11 +8,6 @@ class ElementorComponent extends \SeasonalContent\Core\Singleton implements \Sea
     private array $categories;
 
     public function setTypes(array $instances): void {
-        // foreach ($instances as $instance) {
-        //     if(!$instance instanceof \SeasonalContent\Types\Type) {
-        //         throw new \InvalidArgumentException("Instance of Elementor Type should be \\Types\\Type, " . gettype($instance) . " given" );
-        //     }
-        // }
         $this->keyTypes = $instances;
     }
 
@@ -36,7 +31,7 @@ class ElementorComponent extends \SeasonalContent\Core\Singleton implements \Sea
         $document->start_controls_section(
             SECOEL_PREFIX.'seasonal_content',
             [
-                'label' => esc_html__( 'Сезонный контент', 'textdomain' ),
+                'label' => esc_html__( 'Seasonal Content', 'seasonal-content' ),
                 'tab' => \Elementor\Controls_Manager::TAB_SETTINGS,
             ]
         );
@@ -44,7 +39,7 @@ class ElementorComponent extends \SeasonalContent\Core\Singleton implements \Sea
         $document->add_control(
             SECOEL_PREFIX.'restore_main_backup',
             [
-                'label' => esc_html__( 'Восстановить последнюю прежнюю версию', 'textdomain' ),
+                'label' => esc_html__( 'Restore main version', 'seasonal-content' ),
                 'type' => \Elementor\Controls_Manager::BUTTON,
                 'text' => "Восстановить",
                 'event' => SECOEL_PREFIX . 'restore_main_backup'
@@ -53,7 +48,7 @@ class ElementorComponent extends \SeasonalContent\Core\Singleton implements \Sea
         $document->add_control(
             SECOEL_PREFIX.'set_as_main_backup',
             [
-                'label' => esc_html__( 'Установить как основу', 'textdomain' ),
+                'label' => esc_html__( 'Set as main version', 'seasonal-content' ),
                 'type' => \Elementor\Controls_Manager::BUTTON,
                 'text' => "Установить",
                 'event' => SECOEL_PREFIX . 'set_as_main_backup'
@@ -62,22 +57,12 @@ class ElementorComponent extends \SeasonalContent\Core\Singleton implements \Sea
         $document->add_control(
             SECOEL_PREFIX.'update_content',
             [
-                'label' => esc_html__( 'Обновить контент', 'textdomain' ),
+                'label' => esc_html__( 'Update content', 'seasonal-content' ),
                 'type' => \Elementor\Controls_Manager::BUTTON,
                 'text' => "Обновить",
                 'event' => SECOEL_PREFIX . 'update_content'
             ]
         );
-        // $document->add_control(
-        //     SECOEL_PREFIX.'update_current_category',
-        //     [
-        //         'label' => esc_html__( 'Обновить текущую категорию', 'textdomain' ),
-        //         'type' => \Elementor\Controls_Manager::BUTTON,
-        //         'text' => "Обновить",
-        //         'event' => SECOEL_PREFIX . 'update_current_category'
-        //     ]
-        // );
-
     
         $document->end_controls_section();
     }

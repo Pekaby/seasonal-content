@@ -111,6 +111,9 @@ document.addEventListener('DOMContentLoaded', (de) => {
             success: (r) => {
                 document.querySelectorAll('.category').forEach((element, index) => {
                     category = r['data'].find((obj) => obj.title == element.querySelector('.category_name').value)
+                    if(!category) {
+                        return;
+                    }
                     if(category.title == element.querySelector('.category_name').value) {
                         element.querySelector('.category_name').dataset.id = category.id;
                         element.querySelector('.category_start_date').dataset.id = category.id;

@@ -79,7 +79,7 @@ class Plugin extends Singleton
         if($hook !== 'seasonal-content_page_secoel_categories') {
             return;
         }
-        wp_enqueue_script( SECOEL_PREFIX . 'categories', plugin_dir_url(SECOEL_DIR ) . 'seasonal-content/assets/js/admin-categories.js', [], '2.0', ['strategy' => 'defer']);
+        wp_enqueue_script( SECOEL_PREFIX . 'categories', plugin_dir_url(SECOEL_DIR ) . 'seasonal-content/assets/js/admin-categories.js', [], '2.1', ['strategy' => 'defer']);
         wp_localize_script(SECOEL_PREFIX . 'categories', SECOEL_PREFIX . 'security', [
             'nonce' => wp_create_nonce(SECOEL_PREFIX . 'security'),
             'translation' => [
@@ -188,7 +188,7 @@ class Plugin extends Singleton
             )
         );
 
-        if(@$_GET['action'] == 'elementor'){
+        if(isset($_GET['action']) && @$_GET['action'] == 'elementor'){
             $elementorComponent = \SeasonalContent\Components\Elementor\ElementorComponent::getInstance();
             $elementorComponent->setTypes(TypeController::getRegisteredTypes());
             $elementorComponent->setCategories(\SeasonalContent\Models\Category::getAllCategories());
