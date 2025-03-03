@@ -37,7 +37,7 @@ class Ajax extends Singleton
     
         if (method_exists($this, sanitize_text_field(wp_unslash($_POST['method'])))) {
             $method = sanitize_text_field(wp_unslash($_POST['method']));
-            $this->$method(sanitize_text_field(wp_unslash($_POST['data'])));
+            $this->$method(wp_unslash($_POST['data']));
             wp_send_json_success(['message' => 'Method executed successfully']);
             return;
         }
@@ -54,7 +54,6 @@ class Ajax extends Singleton
                                                                              ->setCreatedBy(wp_get_current_user()->ID)
                                                                              ->setId((int) $category['id']);
         }
-        
         $this->getComponent('CategoryComponent')->saveCategories();
         wp_send_json_success((array) $this->getComponent('CategoryComponent')->categories, 200); 
     }

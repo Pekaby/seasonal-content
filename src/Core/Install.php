@@ -57,7 +57,9 @@ class Install
         ) $charsetСollate;";
 
         require_once ABSPATH . 'wp-admin/includes/upgrade.php';
-        dbDelta($sql);
+        $result = dbDelta($sql);
+        if(!empty($result)) return true;
+        return false;
     }
 
     private static function registerCron() : bool {
