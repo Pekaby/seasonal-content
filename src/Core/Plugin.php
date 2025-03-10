@@ -64,8 +64,24 @@ class Plugin extends Singleton
                                          DTO\Hook::set('init', [$this, 'loadTranslations']),
                                                 DTO\Hook::set('init', [$this, 'cronInit']),
                                                 DTO\Hook::set('plugins_loaded', [$this, 'admin']),
-                                                DTO\Hook::set('admin_enqueue_scripts', [$this, 'enqueueScrips'])
+                                                DTO\Hook::set('admin_enqueue_scripts', [$this, 'enqueueScrips']),
+                                                DTO\Hook::set('admin_enqueue_scripts', [$this, 'enqueueStyles'])
                                                 );
+        }
+    }
+    
+    /**
+     * Enqueue Styles for specific pages
+     *
+     * @return void
+     */
+    public function enqueueStyles(): void {
+        $screen = get_current_screen();
+        if( $screen && $screen->id === 'seasonal-content_page_' . SECOEL_PREFIX . 'categories' ) {
+            wp_enqueue_style(SECOEL_PREFIX . 'categories', plugin_dir_url(SECOEL_DIR) . 'seasonal-content/assets/css/admin-categories.css', [], '2.1');
+        }
+        if( $screen && $screen->id === 'seasonal-content_page_' . SECOEL_PREFIX . 'addons') {
+            wp_enqueue_style(SECOEL_PREFIX . 'categories', plugin_dir_url(SECOEL_DIR) . 'seasonal-content/assets/css/admin-addons.css', [], '2.1');
         }
     }
     
