@@ -49,15 +49,15 @@ class AddonComponent extends \SeasonalContent\Core\Singleton implements Componen
     private function loadAddonsInformation() {
         foreach ($this->aviableAddons as $slug => $addonInformation) {
             if(array_key_exists($slug, $this->activatedAddons)) {
-                $this->addonsInformation['activated'][$slug] = $addonInformation; 
+                $this->addonsInformation[__('activated', 'seasonal-content')][$slug] = $addonInformation; 
                 continue;
             }
             if(array_key_exists($slug, $this->installed)) {
-                $this->addonsInformation['installed'][$slug] = $addonInformation; 
+                $this->addonsInformation[__('installed', 'seasonal-content')][$slug] = $addonInformation; 
                 continue;
             }
 
-            $this->addonsInformation['aviable'][$slug] = $addonInformation;
+            $this->addonsInformation[__('aviable', 'seasonal-content')][$slug] = $addonInformation;
         }
         
     }
