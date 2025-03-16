@@ -7,7 +7,7 @@ Author: Mikhail
 Author URI: https://t.me/pekaby/
 License: GPL v3.0
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
-Version: 2.6.3
+Version: 2.6.4
 Requires at least: 6.7
 Tested up to: 6.7
 Requires PHP: 7.4
@@ -32,10 +32,6 @@ if( !defined( 'SECOEL_DIR' ) ) {
 
 if( !defined( 'SECOEL_INDEX' ) ) {
     define('SECOEL_INDEX', __FILE__);
-}
-
-if( !defined( 'SECOEL_PLUGIN_URL' ) ) {
-    define( 'SECOEL_PLUGIN_URL', plugins_url() );
 }
 
 SeasonalContent\Core\Plugin::getInstance()->run();

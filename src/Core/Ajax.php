@@ -23,6 +23,16 @@ class Ajax extends Singleton
         return null;
     }
 
+    private function sanitize(mixed $data): mixed {
+        if ( is_array($data) ) {
+            foreach ($data as $key => &$value) {
+                $value = $this->sanitize($value);
+            }
+            return $data;
+        }
+        return sanitize_text_field($data);
+    }
+
     public function requestHandler(): void {
         $nonce = isset($_POST['nonce']) ? sanitize_text_field(wp_unslash($_POST['nonce'])) : '';
 
@@ -37,7 +47,7 @@ class Ajax extends Singleton
     
         if (method_exists($this, sanitize_text_field(wp_unslash($_POST['method'])))) {
             $method = sanitize_text_field(wp_unslash($_POST['method']));
-            $this->$method(wp_unslash($_POST['data']));
+            $this->$method($this->sanitize($_POST['data']));
             wp_send_json_success(['message' => 'Method executed successfully']);
             return;
         }
@@ -46,6 +56,7 @@ class Ajax extends Singleton
     }
 
     public function saveCategories($categories){
+        error_log(print_r($categories, true));
         foreach ($categories as $category) {
             $this->getComponent('CategoryComponent')->categories[] = \SeasonalContent\Models\Category::init()->setTitle($category['title'])
                                                                              ->setSlug(\SeasonalContent\Support\Translitiration::translit($category['title']))
