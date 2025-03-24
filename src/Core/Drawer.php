@@ -11,7 +11,7 @@ class Drawer
     public static function adminNotice(string $message) { 
         echo '<div class="notice notice-warning">';
         echo '<p>';
-        esc_html_e($message, 'seasonal-content');
+        esc_html($message );
         echo '</p>';
         echo '</div>';
     }

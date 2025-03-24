@@ -90,7 +90,8 @@ document.addEventListener('DOMContentLoaded', (de) => {
             categories[index] = {};
 
             if(element.querySelector('.category_name').dataset.id != null){
-                categories[index]['id'] = element.querySelector('.category_name').dataset.id;
+                categories[index]['id'] = parseInt(element.querySelector('.category_name').dataset.id);
+                console.log(typeof categories[index]['id']);
             }
 
             categories[index]['title'] = element.querySelector('.category_name').value;

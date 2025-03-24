@@ -24,7 +24,7 @@ class ColumnBackground implements Type
             SECOEL_PREFIX.'background',
             [
                 'tab' => \Elementor\Controls_Manager::TAB_STYLE,
-                'label' => esc_html__( 'Seasonal Content', 'seasonal-content' ),
+                'label' => esc_html( 'Seasonal Content' ),
             ]
         );
         foreach ($this->categories as $category) {
@@ -32,7 +32,7 @@ class ColumnBackground implements Type
                 SECOEL_PREFIX . $category->slug . self::CONTROL_NAME,
                 [
                     'type' => \Elementor\Controls_Manager::MEDIA,
-                    'label' => esc_html__( $category->title, 'seasonal-content' ),
+                    'label' => esc_html( $category->title ),
                 ]
             );
         }

@@ -29,10 +29,10 @@ class Install
 
         $categoryTable = $wpdb->prefix . SECOEL_PREFIX . 'categories';
 
-        $wpdb->query("DROP TABLE `{$categoryTable}`");
+        $wpdb->query("DROP TABLE `" . esc_sql($categoryTable) . "`");
         $wpdb->query(
             $wpdb->prepare(
-                "DELETE FROM {$wpdb->options} WHERE `option_name` LIKE '%s';",
+                "DELETE FROM {$wpdb->options} WHERE `option_name` LIKE %s;",
                 'secoel_%_current_season'
             )
         );

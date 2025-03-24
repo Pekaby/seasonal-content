@@ -30,7 +30,7 @@ if ( !defined( 'ABSPATH' ) ) {
 if(empty($categories)){
     $empty_category =  '<tr class="category">
                 <td>
-                    <input type="text" class="category_name" placeholder="'.__('Title').'">
+                    <input type="text" class="category_name" placeholder="'.__('Title', 'seasonal-content').'">
                 </td>
                 <td>
                     <input type="date" class="category_start_date">
@@ -44,7 +44,37 @@ if(empty($categories)){
                     </button>
                 </td>
             </tr>';
-    echo $empty_category;
+    echo wp_kses($empty_category, [
+        'tr' =>[
+            "class"           => true,
+        ],
+        'td' => [],
+        'input' => [
+            "id"              => true,
+            "type"            => true, 
+            "class"           => true,
+            "placeholder"     => true,
+        ],
+        'button' => [
+            "class"           => true,
+        ],
+        'svg'   => [
+            'class'           => true,
+            'aria-hidden'     => true,
+            'aria-labelledby' => true,
+            'role'            => true,
+            'xmlns'           => true,
+            'width'           => true,
+            'height'          => true,
+            'viewbox'         => true, 
+        ],
+        'g'     => [ 'fill'   => true ],
+        'title' => [ 'title'  => true ],
+        'path'  => [
+            'd'               => true, 
+            'fill'            => true,  
+        ]
+    ]);
 } else {
     foreach ($categories as $category) {
         echo '<tr class="category">';

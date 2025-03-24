@@ -2,6 +2,8 @@
 
 namespace SeasonalContent\Core;
 
+use Validator;
+
 class Ajax extends Singleton
 {
 
@@ -47,7 +49,10 @@ class Ajax extends Singleton
     
         if (method_exists($this, sanitize_text_field(wp_unslash($_POST['method'])))) {
             $method = sanitize_text_field(wp_unslash($_POST['method']));
-            $this->$method($this->sanitize($_POST['data']));
+
+            $validator = new \SeasonalContent\Support\Validator($method);
+            $this->$method($validator->validate( $this->sanitize($_POST['data']) ));
+
             wp_send_json_success(['message' => 'Method executed successfully']);
             return;
         }
@@ -56,7 +61,7 @@ class Ajax extends Singleton
     }
 
     public function saveCategories($categories){
-        error_log(print_r($categories, true));
+        // var_dump($categories);
         foreach ($categories as $category) {
             $this->getComponent('CategoryComponent')->categories[] = \SeasonalContent\Models\Category::init()->setTitle($category['title'])
                                                                              ->setSlug(\SeasonalContent\Support\Translitiration::translit($category['title']))
@@ -66,7 +71,7 @@ class Ajax extends Singleton
                                                                              ->setId((int) $category['id']);
         }
         $this->getComponent('CategoryComponent')->saveCategories();
-        wp_send_json_success((array) $this->getComponent('CategoryComponent')->categories, 200); 
+        wp_send_json_success((array) $this->getComponent('CategoryComponent')->categories, 200, JSON_UNESCAPED_UNICODE); 
     }
 
     public function deleteCategory($ids) {

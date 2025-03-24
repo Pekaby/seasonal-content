@@ -43,7 +43,7 @@ foreach($sections as $section) { ?>
             <td class="title"><span><?php echo esc_html($addon['title'])?></span></td>
             <td class="description"><span><?php echo esc_html($addon['description'])?></span></td>
             <td class="version"><span><?php echo esc_html($addon['version'])?></span></td>
-            <td class="action"><span><?php echo ($section == 'aviable') ? "<a href=\"".esc_html($addon['url'])."\" target=\"_blank\"><button class=\"filled\">" . __( 'Buy', 'seasonal-content' ) . " ↗</button></a>" : ''?></td>
+            <td class="action"><span><?php echo ($section == 'aviable') ? "<a href=\"".esc_html($addon['url'])."\" target=\"_blank\"><button class=\"filled\">" . esc_html__( 'Buy', 'seasonal-content' ) . " ↗</button></a>" : ''?></td>
         </tr>
     <?php } ?>
     </table>

@@ -36,6 +36,12 @@ class Plugin extends Singleton
         $this->hookManager = ( null !== $hookManager ) ? $hookManager : HookManager::getInstance();
         $this->addonManager = AddonManager::getInstance();
 
+        if(!$this->hookManager->didAction('elementor/loaded')){
+            $this->hookManager->registerActions(DTO\Hook::set(SECOEL_PREFIX . 'elementor_disabled', [Drawer::class, 'adminNotice'], 10, 1));
+            $this->hookManager->doAction(DTO\Hook::set(SECOEL_PREFIX . 'elementor_disabled'), __('You should install and enable Elementor before work with Seasonal Content!', 'seasonal-content') );
+            return;
+        }
+
         $this->hookManager->doAction(DTO\Hook::set(
             "SeasonalContent/beforeLoadAddons"
         ), $this->hookManager);
@@ -61,7 +67,7 @@ class Plugin extends Singleton
 
         if(is_admin()){
             $this->hookManager->registerActions(
-                                         DTO\Hook::set('init', [$this, 'loadTranslations']),
+                                         // DTO\Hook::set('init', [$this, 'loadTranslations']),
                                                 DTO\Hook::set('init', [$this, 'cronInit']),
                                                 DTO\Hook::set('plugins_loaded', [$this, 'admin']),
                                                 DTO\Hook::set('admin_enqueue_scripts', [$this, 'enqueueScrips']),
@@ -123,11 +129,11 @@ class Plugin extends Singleton
      * @return void
      */
     public function admin():void {
-        if(!$this->hookManager->didAction('elementor/loaded')){
-            $this->hookManager->registerActions(DTO\Hook::set(SECOEL_PREFIX . 'elementor_disabled', [Drawer::class, 'adminNotice'], 10, 1));
-            $this->hookManager->doAction(DTO\Hook::set(SECOEL_PREFIX . 'elementor_disabled'), __('You should install and enable Elementor before work with Seasonal Content!', 'seasonal-content') );
-            return;
-        }
+        // if(!$this->hookManager->didAction('elementor/loaded')){
+        //     $this->hookManager->registerActions(DTO\Hook::set(SECOEL_PREFIX . 'elementor_disabled', [Drawer::class, 'adminNotice'], 10, 1));
+        //     $this->hookManager->doAction(DTO\Hook::set(SECOEL_PREFIX . 'elementor_disabled'), __('You should install and enable Elementor before work with Seasonal Content!', 'seasonal-content') );
+        //     return;
+        // }
 
         // menu
         $menu = new \SeasonalContent\Components\Menu\AdminMenuComponent();

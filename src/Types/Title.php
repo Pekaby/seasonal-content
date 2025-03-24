@@ -26,7 +26,7 @@ class Title implements Type
             SECOEL_PREFIX.'text_editor',
             [
                 'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
-                'label' => esc_html__( 'Seasonal Content', 'seasonal-content' ),
+                'label' => esc_html( 'Seasonal Content' ),
             ]
         );
         foreach ($this->categories as $category) {
@@ -34,7 +34,7 @@ class Title implements Type
                 SECOEL_PREFIX. $category->slug . self::CONTROL_NAME,
                 [
                     'type' => \Elementor\Controls_Manager::TEXTAREA,
-                    'label' => esc_html__( $category->title, 'seasonal-content' ),
+                    'label' => esc_html( $category->title ),
                 ]
             );
         }
