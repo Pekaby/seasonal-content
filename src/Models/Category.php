@@ -43,9 +43,10 @@ class Category
 
     public static function getCategory($id):self {
         global $wpdb;
+        $table = esc_sql( $wpdb->prefix . SECOEL_PREFIX . "categories" );
         $category = $wpdb->get_results( 
             $wpdb->prepare(
-                "SELECT * FROM `{$wpdb->prefix}" . SECOEL_PREFIX . "categories` WHERE `id` = %d",
+                "SELECT * FROM `{$table}` WHERE `id` = %d",
                 $id
             )
         );
@@ -69,7 +70,7 @@ class Category
         global $wpdb;
         if(isset($this->id)) {
             $wpdb->delete(
-                $wpdb->prefix.SECOEL_PREFIX."categories",
+                esc_sql($wpdb->prefix.SECOEL_PREFIX."categories"),
                 [
                     "id" => $this->id
                 ]

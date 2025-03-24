@@ -7,7 +7,7 @@ Author: SeasonalContent.com
 Author URI: https://t.me/pekaby/
 License: GPL v3.0
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
-Version: 2.6.7
+Version: 2.6.8
 Requires at least: 6.7
 Tested up to: 6.7
 Elementor tested up to: 3.28.1

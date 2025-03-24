@@ -51,7 +51,7 @@ class Ajax extends Singleton
             $method = sanitize_text_field(wp_unslash($_POST['method']));
 
             $validator = new \SeasonalContent\Support\Validator($method);
-            $this->$method($validator->validate( $this->sanitize($_POST['data']) ));
+            $this->$method( $validator->validate( $this->sanitize(wp_unslash($_POST['data']) )) );
 
             wp_send_json_success(['message' => 'Method executed successfully']);
             return;

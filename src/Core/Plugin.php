@@ -210,7 +210,7 @@ class Plugin extends Singleton
             )
         );
 
-        if(isset($_GET['action']) && sanitize_text_field($_GET['action']) == 'elementor'){
+        if(isset($_GET['action']) && sanitize_text_field(wp_unslash($_GET['action'])) == 'elementor'){
             $elementorComponent = \SeasonalContent\Components\Elementor\ElementorComponent::getInstance();
             $elementorComponent->setTypes(TypeController::getRegisteredTypes());
             $elementorComponent->setCategories(\SeasonalContent\Models\Category::getAllCategories());

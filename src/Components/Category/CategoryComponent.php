@@ -14,7 +14,7 @@ class CategoryComponent implements \SeasonalContent\Components\Component
     public static function getCategories() {
         global $wpdb;
 
-        $categories = $wpdb->get_results("SELECT * FROM " . $wpdb->prefix . SECOEL_PREFIX . 'categories');
+        $categories = $wpdb->get_results("SELECT * FROM " . esc_sql($wpdb->prefix . SECOEL_PREFIX . 'categories'));
 
         $m_categories = [];
         foreach ($categories as $category) {
@@ -72,7 +72,8 @@ class CategoryComponent implements \SeasonalContent\Components\Component
 
     public static function getCategory($id):\SeasonalContent\Models\Category {
         global $wpdb;
-        $category = $wpdb->get_results($wpdb->prepare("SELECT * FROM `" . $wpdb->prefix . SECOEL_PREFIX . "categories` WHERE `id` = %d", $id));
+        $table = esc_sql($wpdb->prefix . SECOEL_PREFIX . "categories");
+        $category = $wpdb->get_results($wpdb->prepare("SELECT * FROM `{$table}` WHERE `id` = %d", $id));
         if($category){
             $category = $category[0];
             return \SeasonalContent\Models\Category::init()->setTitle($category->title)

@@ -70,7 +70,7 @@ class BackupContent
         $backup = \SeasonalContent\Models\Backup::init()->setPostId($backupId)
                                                     ->setParentId($postId)
                                                     ->setName("_main_backup_".$prefix)
-                                                    ->setCreatedAt(date("Y-m-d H:i:s"))
+                                                    ->setCreatedAt(gmdate("Y-m-d H:i:s"))
                                                     ->save();
 
 
@@ -123,7 +123,7 @@ class BackupContent
         $backup = \SeasonalContent\Models\Backup::init()->setPostId($backupId)
                                                     ->setParentId($postId)
                                                     ->setName("_main_backup_".$prefix)
-                                                    ->setCreatedAt(date("Y-m-d H:i:s"));
+                                                    ->setCreatedAt(gmdate("Y-m-d H:i:s"));
 
 
         
