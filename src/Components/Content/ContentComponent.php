@@ -14,7 +14,7 @@ class ContentComponent extends \SeasonalContent\Core\Singleton implements Compon
     private int $pageSeason;
 
     public function __construct() {
-        $this->currentSeason = get_option(SECOEL_PREFIX.'current_season', 0);
+        $this->currentSeason = get_option(SEASONALCONTENT_PREFIX.'current_season', 0);
     }
 
     public function setPostId(int $post_id): void {
@@ -40,7 +40,7 @@ class ContentComponent extends \SeasonalContent\Core\Singleton implements Compon
 
     private function getPageSeason() {
         if(isset($this->pageSeason)) return $this->pageSeason;
-        $this->pageSeason = get_option(SECOEL_PREFIX.$this->postId."_current_season", 0);
+        $this->pageSeason = get_option(SEASONALCONTENT_PREFIX.$this->postId."_current_season", 0);
         return $this->pageSeason;
     }
 
@@ -65,11 +65,11 @@ class ContentComponent extends \SeasonalContent\Core\Singleton implements Compon
         
         update_post_meta($this->postId, '_elementor_data', wp_slash(json_encode($changed_elementor_data, JSON_UNESCAPED_UNICODE)));
 
-        update_option(SECOEL_PREFIX.$this->postId."_current_season", $category->id, true);
+        update_option(SEASONALCONTENT_PREFIX.$this->postId."_current_season", $category->id, true);
     }
 
     public static function saveData($postId) {
-        if( !get_option(SECOEL_PREFIX . 'update_backup_settings', true) ) {
+        if( !get_option(SEASONALCONTENT_PREFIX . 'update_backup_settings', true) ) {
             return;
         }
         if(!BackupContent::hasMainBackup($postId)) {

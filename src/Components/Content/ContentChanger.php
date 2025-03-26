@@ -34,7 +34,7 @@ class ContentChanger
             if(array_key_exists( 'settings', $contentData ) && array_key_exists( 'settings', $backupContent[$contentKey] )) {
                 
                 foreach ($contentData['settings'] as $param => $value) {
-                    if(strncmp($param, SECOEL_PREFIX, strlen(SECOEL_PREFIX)) === 0) {
+                    if(strncmp($param, SEASONALCONTENT_PREFIX, strlen(SEASONALCONTENT_PREFIX)) === 0) {
                         $backupContent[$contentKey]['settings'][$param] = $value;
                     }
                 }

@@ -29,16 +29,15 @@ class Plugin extends Singleton
      * @return void
      */
     public function run(HookManager $hookManager = null):void {
-        register_activation_hook(SECOEL_INDEX, [Install::class, 'install']);
-        register_deactivation_hook(SECOEL_INDEX, [Install::class, 'deactivate']);
-        register_uninstall_hook( SECOEL_INDEX, [Install::class, 'uninstall']);
+        register_activation_hook(SEASONALCONTENT_INDEX, [Install::class, 'install']);
+        register_deactivation_hook(SEASONALCONTENT_INDEX, [Install::class, 'deactivate']);
+        register_uninstall_hook( SEASONALCONTENT_INDEX, [Install::class, 'uninstall']);
 
         $this->hookManager = ( null !== $hookManager ) ? $hookManager : HookManager::getInstance();
         $this->addonManager = AddonManager::getInstance();
 
         if(!$this->hookManager->didAction('elementor/loaded')){
-            $this->hookManager->registerActions(DTO\Hook::set(SECOEL_PREFIX . 'elementor_disabled', [Drawer::class, 'adminNotice'], 10, 1));
-            $this->hookManager->doAction(DTO\Hook::set(SECOEL_PREFIX . 'elementor_disabled'), __('You should install and enable Elementor before work with Seasonal Content!', 'seasonal-content') );
+            $this->hookManager->registerActions(DTO\Hook::set('admin_notices', [\SeasonalContent\Support\Notices::class, 'ElementorNotActivated']));
             return;
         }
 
@@ -83,11 +82,11 @@ class Plugin extends Singleton
      */
     public function enqueueStyles(): void {
         $screen = get_current_screen();
-        if( $screen && $screen->id === 'seasonal-content_page_' . SECOEL_PREFIX . 'categories' ) {
-            wp_enqueue_style(SECOEL_PREFIX . 'categories', plugin_dir_url(SECOEL_DIR) . 'seasonal-content/assets/css/admin-categories.css', [], '2.1');
+        if( $screen && $screen->id === 'seasonal-content_page_' . SEASONALCONTENT_PREFIX . 'categories' ) {
+            wp_enqueue_style(SEASONALCONTENT_PREFIX . 'categories', plugin_dir_url(SEASONALCONTENT_DIR) . 'seasonal-content/assets/css/admin-categories.css', [], '2.1');
         }
-        if( $screen && $screen->id === 'seasonal-content_page_' . SECOEL_PREFIX . 'addons') {
-            wp_enqueue_style(SECOEL_PREFIX . 'categories', plugin_dir_url(SECOEL_DIR) . 'seasonal-content/assets/css/admin-addons.css', [], '2.1');
+        if( $screen && $screen->id === 'seasonal-content_page_' . SEASONALCONTENT_PREFIX . 'addons') {
+            wp_enqueue_style(SEASONALCONTENT_PREFIX . 'categories', plugin_dir_url(SEASONALCONTENT_DIR) . 'seasonal-content/assets/css/admin-addons.css', [], '2.1');
         }
     }
     
@@ -98,12 +97,12 @@ class Plugin extends Singleton
      * @return void
      */
     public function enqueueScrips($hook): void {
-        if($hook !== 'seasonal-content_page_secoel_categories') {
+        if($hook !== 'seasonal-content_page_seasonalcontent_categories') {
             return;
         }
-        wp_enqueue_script( SECOEL_PREFIX . 'categories', plugin_dir_url(SECOEL_DIR ) . 'seasonal-content/assets/js/admin-categories.js', [], '2.1', ['strategy' => 'defer']);
-        wp_localize_script(SECOEL_PREFIX . 'categories', SECOEL_PREFIX . 'security', [
-            'nonce' => wp_create_nonce(SECOEL_PREFIX . 'security'),
+        wp_enqueue_script( SEASONALCONTENT_PREFIX . 'categories', plugin_dir_url(SEASONALCONTENT_DIR ) . 'seasonal-content/assets/js/admin-categories.js', [], '2.1', ['strategy' => 'defer']);
+        wp_localize_script(SEASONALCONTENT_PREFIX . 'categories', SEASONALCONTENT_PREFIX . 'security', [
+            'nonce' => wp_create_nonce(SEASONALCONTENT_PREFIX . 'security'),
             'translation' => [
                 'title' => esc_html__('Title', 'seasonal-content'),
             ]
@@ -130,8 +129,7 @@ class Plugin extends Singleton
      */
     public function admin():void {
         // if(!$this->hookManager->didAction('elementor/loaded')){
-        //     $this->hookManager->registerActions(DTO\Hook::set(SECOEL_PREFIX . 'elementor_disabled', [Drawer::class, 'adminNotice'], 10, 1));
-        //     $this->hookManager->doAction(DTO\Hook::set(SECOEL_PREFIX . 'elementor_disabled'), __('You should install and enable Elementor before work with Seasonal Content!', 'seasonal-content') );
+        //     $this->hookManager->registerActions(DTO\Hook::set('admin_notices', [\SeasonalContent\Support\Notices::class, 'ElementorNotActivated']));
         //     return;
         // }
 
@@ -142,7 +140,7 @@ class Plugin extends Singleton
                 "SeasonalContent",
                 'Seasonal Content',
                 '',
-                SECOEL_PREFIX,
+                SEASONALCONTENT_PREFIX,
                 null,
                 null,
                 59
@@ -150,22 +148,22 @@ class Plugin extends Singleton
         );
         $menu->addSubAdminMenu(
             \SeasonalContent\Components\Menu\SubMenuItem::set(
-                SECOEL_PREFIX,
+                SEASONALCONTENT_PREFIX,
                 __('Manage Categories', 'seasonal-content'),
                 __('Manage Categories', 'seasonal-content'),
                 'manage_options',
-                SECOEL_PREFIX.'categories',
+                SEASONALCONTENT_PREFIX.'categories',
                 [(new \SeasonalContent\Templates\Categories()), 'render']
             )
         );
 
         $menu->addSubAdminMenu(
             \SeasonalContent\Components\Menu\SubMenuItem::set(
-                SECOEL_PREFIX,
+                SEASONALCONTENT_PREFIX,
                     __('Addons', 'seasonal-content'),
                     __('Addons', 'seasonal-content'),
                     'manage_options',
-                    SECOEL_PREFIX.'addons',
+                    SEASONALCONTENT_PREFIX.'addons',
                     [(new \SeasonalContent\Templates\Addons()), 'render']
                 )
             );
@@ -193,14 +191,14 @@ class Plugin extends Singleton
                 'elementor/editor/after_enqueue_scripts',
                 function() {
                     wp_enqueue_script(
-                        SECOEL_PREFIX.'elementor_action_handler',
-                        plugins_url( '/assets/js/elementor-page.js', SECOEL_INDEX ),
+                        SEASONALCONTENT_PREFIX.'elementor_action_handler',
+                        plugins_url( '/assets/js/elementor-page.js', SEASONALCONTENT_INDEX ),
                         [ 'jquery', 'elementor-editor' ],
                         '1.0',
                         true
                     );
-                    wp_localize_script(SECOEL_PREFIX . 'elementor_action_handler', SECOEL_PREFIX . 'security', [
-                        'nonce' => wp_create_nonce(SECOEL_PREFIX . 'security'),
+                    wp_localize_script(SEASONALCONTENT_PREFIX . 'elementor_action_handler', SEASONALCONTENT_PREFIX . 'security', [
+                        'nonce' => wp_create_nonce(SEASONALCONTENT_PREFIX . 'security'),
                     ]);
                 }
             ),
@@ -239,8 +237,8 @@ class Plugin extends Singleton
      *
      * @return void
      */
-    public function loadTranslations():void {
-        $loaded = load_plugin_textdomain('seasonal-content', false, 'seasonal-content/languages');
-    }
+    // public function loadTranslations():void {
+    //     $loaded = load_plugin_textdomain('seasonal-content', false, 'seasonal-content/languages');
+    // }
 
 }

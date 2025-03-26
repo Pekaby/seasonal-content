@@ -38,7 +38,7 @@ class Ajax extends Singleton
     public function requestHandler(): void {
         $nonce = isset($_POST['nonce']) ? sanitize_text_field(wp_unslash($_POST['nonce'])) : '';
 
-        if (!isset($nonce) || !wp_verify_nonce($nonce, 'secoel_security')) {
+        if (!isset($nonce) || !wp_verify_nonce($nonce, 'seasonalcontent_security')) {
             wp_send_json_error(['message' => 'Invalid Nonce'], 400);
             return;
         }

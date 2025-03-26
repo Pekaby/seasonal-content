@@ -5,7 +5,7 @@ namespace SeasonalContent\Templates;
 class Categories implements Template
 {
 
-    private $path = SECOEL_DIR . 'assets/view/categories_managment';
+    private $path = SEASONALCONTENT_DIR . 'assets/view/categories_managment';
 
 
     public function render($data = []) : void {

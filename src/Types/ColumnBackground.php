@@ -19,9 +19,9 @@ class ColumnBackground implements Type
     public function registerElementorControls($element, $section_id):void
     {
         if(empty($this->categories)) return;
-
+        error_log("It shouldnt run now!");
         $element->start_controls_section(
-            SECOEL_PREFIX.'background',
+            SEASONALCONTENT_PREFIX.'background',
             [
                 'tab' => \Elementor\Controls_Manager::TAB_STYLE,
                 'label' => esc_html( 'Seasonal Content' ),
@@ -29,7 +29,7 @@ class ColumnBackground implements Type
         );
         foreach ($this->categories as $category) {
             $element->add_control(
-                SECOEL_PREFIX . $category->slug . self::CONTROL_NAME,
+                SEASONALCONTENT_PREFIX . $category->slug . self::CONTROL_NAME,
                 [
                     'type' => \Elementor\Controls_Manager::MEDIA,
                     'label' => esc_html( $category->title ),
@@ -41,7 +41,7 @@ class ColumnBackground implements Type
 
 
     public function changeElement($element, \SeasonalContent\Models\Category $category):object {
-        $property = SECOEL_PREFIX . $category->slug . self::CONTROL_NAME;
+        $property = SEASONALCONTENT_PREFIX . $category->slug . self::CONTROL_NAME;
         if( property_exists($element->settings, $property) && !empty(@$element->settings->$property) ) {
             $element->settings->background_image = $element->settings->$property;
         }

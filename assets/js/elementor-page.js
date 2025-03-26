@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
 
     //backup
-    elementor.channels.editor.on( 'secoel_restore_main_backup', () => {
+    elementor.channels.editor.on( 'seasonalcontent_restore_main_backup', () => {
         const loader = document.querySelector('#elementor-loading');
         console.log(loader);
         loader.style.display = 'block';
@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
             data:{
                 action: "season_handler",
                 method: "restoreMainBackup",
-                nonce: secoel_security.nonce,
+                nonce: seasonalcontent_security.nonce,
                 data: [urlParams.get('post')]
             },
             success: (r) => {
@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // update content by category
-    elementor.channels.editor.on( 'secoel_update_content', () => {
+    elementor.channels.editor.on( 'seasonalcontent_update_content', () => {
         const loader = document.querySelector('#elementor-loading');
         console.log(loader);
         loader.style.display = 'block';
@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
             data:{
                 action: "season_handler",
                 method: "updateSeasonContent",
-                nonce: secoel_security.nonce,
+                nonce: seasonalcontent_security.nonce,
                 data: [urlParams.get('post')]
             },
             success: (r) => {
@@ -51,12 +51,12 @@ document.addEventListener("DOMContentLoaded", () => {
         })
     });
 
-    elementor.channels.editor.on( 'secoel_update_current_category', () => {
+    elementor.channels.editor.on( 'seasonalcontent_update_current_category', () => {
         alert("Update Current Category");
     });
 
     // update main backup
-    elementor.channels.editor.on( 'secoel_set_as_main_backup', () => {
+    elementor.channels.editor.on( 'seasonalcontent_set_as_main_backup', () => {
         const loader = document.querySelector('#elementor-loading');
         console.log(loader);
         loader.style.display = 'block';
@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
             data:{
                 action: "season_handler",
                 method: "updateMainBackup",
-                nonce: secoel_security.nonce,
+                nonce: seasonalcontent_security.nonce,
                 data: [urlParams.get('post')]
             },
             success: (r) => {

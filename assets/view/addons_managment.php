@@ -3,7 +3,7 @@ if ( !defined( 'ABSPATH' ) ) {
     exit;
 }
 ?>
-<section class="secoel_content_header">
+<section class="seasonalcontent_content_header">
     <div class="t_line"></div>
     <div class="loader"></div>
     <header >

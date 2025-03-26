@@ -21,9 +21,9 @@ class TextEditor implements Type
 
     public function registerElementorControls($element, $args):void {
         if(empty($this->categories)) return;
-
+        
         $element->start_controls_section(
-            SECOEL_PREFIX.'text_editor',
+            SEASONALCONTENT_PREFIX.'text_editor',
             [
                 'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
                 'label' => esc_html( 'Seasonal Content' ),
@@ -31,7 +31,7 @@ class TextEditor implements Type
         );
         foreach ($this->categories as $category) {
             $element->add_control(
-                SECOEL_PREFIX. $category->slug . self::CONTROL_NAME,
+                SEASONALCONTENT_PREFIX. $category->slug . self::CONTROL_NAME,
                 [
                     'type' => \Elementor\Controls_Manager::WYSIWYG,
                     'label' => esc_html( $category->title ),
@@ -43,7 +43,7 @@ class TextEditor implements Type
     }
 
     public function changeElement($element, \SeasonalContent\Models\Category $category):object {
-        $property = SECOEL_PREFIX . $category->slug . self::CONTROL_NAME;
+        $property = SEASONALCONTENT_PREFIX . $category->slug . self::CONTROL_NAME;
         if( property_exists($element->settings, $property) && !empty(@$element->settings->$property) ) {
             $element->settings->editor = $element->settings->$property;
         }

@@ -22,7 +22,7 @@ const stop_loader_success = () => {
 const category_element = `
     <tr class="category">
         <td>
-            <input type="text" class="category_name" placeholder="${secoel_security.translation.title}">
+            <input type="text" class="category_name" placeholder="${seasonalcontent_security.translation.title}">
         </td>
         <td>
             <input type="date" class="category_start_date">
@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', (de) => {
                 data: {
                     action: 'season_handler',
                     method: 'deleteCategory',
-                    nonce: secoel_security.nonce,
+                    nonce: seasonalcontent_security.nonce,
                     data: [e.target.closest('.category_delete').dataset.id]
                 },
                 success: (r) => {
@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', (de) => {
             data: {
                 action: 'season_handler',
                 method: 'saveCategories',
-                nonce: secoel_security.nonce,
+                nonce: seasonalcontent_security.nonce,
                 data: categories
             },
             success: (r) => {

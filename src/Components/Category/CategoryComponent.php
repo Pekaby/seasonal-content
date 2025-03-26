@@ -14,7 +14,7 @@ class CategoryComponent implements \SeasonalContent\Components\Component
     public static function getCategories() {
         global $wpdb;
 
-        $categories = $wpdb->get_results("SELECT * FROM " . esc_sql($wpdb->prefix . SECOEL_PREFIX . 'categories'));
+        $categories = $wpdb->get_results("SELECT * FROM " . esc_sql($wpdb->prefix . SEASONALCONTENT_PREFIX . 'categories'));
 
         $m_categories = [];
         foreach ($categories as $category) {
@@ -36,10 +36,10 @@ class CategoryComponent implements \SeasonalContent\Components\Component
 
         foreach ($this->categories as &$category) {
             if($category->id > 0) {
-                $wpdb->update($wpdb->prefix . SECOEL_PREFIX . 'categories', (array) $category, ['id' => $category->id]);
+                $wpdb->update($wpdb->prefix . SEASONALCONTENT_PREFIX . 'categories', (array) $category, ['id' => $category->id]);
                 continue;
             }
-            $new_category = $wpdb->insert($wpdb->prefix . SECOEL_PREFIX . 'categories', (array) $category);
+            $new_category = $wpdb->insert($wpdb->prefix . SEASONALCONTENT_PREFIX . 'categories', (array) $category);
             $category->id = ($new_category) ? $wpdb->insert_id : 0;
 
 
@@ -48,7 +48,7 @@ class CategoryComponent implements \SeasonalContent\Components\Component
     }
 
     public function updateCurrentSeason():void {
-        update_option(SECOEL_PREFIX . "current_season", 0);
+        update_option(SEASONALCONTENT_PREFIX . "current_season", 0);
         $this->activeCategory = 0;
         foreach ($this->categories as $category) {
             $year_start = 1970;
@@ -65,14 +65,14 @@ class CategoryComponent implements \SeasonalContent\Components\Component
                 // var_dump($date_end);
                 // var_dump($category);
                 $this->activeCategory = $category->id;
-                update_option(SECOEL_PREFIX . "current_season", $category->id);
+                update_option(SEASONALCONTENT_PREFIX . "current_season", $category->id);
             } 
         }
     }
 
     public static function getCategory($id):\SeasonalContent\Models\Category {
         global $wpdb;
-        $table = esc_sql($wpdb->prefix . SECOEL_PREFIX . "categories");
+        $table = esc_sql($wpdb->prefix . SEASONALCONTENT_PREFIX . "categories");
         $category = $wpdb->get_results($wpdb->prepare("SELECT * FROM `{$table}` WHERE `id` = %d", $id));
         if($category){
             $category = $category[0];

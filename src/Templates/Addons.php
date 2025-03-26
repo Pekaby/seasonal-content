@@ -5,7 +5,7 @@ namespace SeasonalContent\Templates;
 class Addons implements Template
 {
 
-    private $path = SECOEL_DIR . 'assets/view/addons_managment';
+    private $path = SEASONALCONTENT_DIR . 'assets/view/addons_managment';
 
 
     public function render($data = []) : void {

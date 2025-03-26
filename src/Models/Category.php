@@ -19,7 +19,7 @@ class Category
 
     public static function getAllCategories():array {
         global $wpdb;
-        $talbeName = esc_sql($wpdb->prefix . SECOEL_PREFIX . 'categories');
+        $talbeName = esc_sql($wpdb->prefix . SEASONALCONTENT_PREFIX . 'categories');
         $sql = "SELECT * FROM `{$talbeName}`";
         $categories_raw = $wpdb->get_results( $sql );
 
@@ -43,7 +43,7 @@ class Category
 
     public static function getCategory($id):self {
         global $wpdb;
-        $table = esc_sql( $wpdb->prefix . SECOEL_PREFIX . "categories" );
+        $table = esc_sql( $wpdb->prefix . SEASONALCONTENT_PREFIX . "categories" );
         $category = $wpdb->get_results( 
             $wpdb->prepare(
                 "SELECT * FROM `{$table}` WHERE `id` = %d",
@@ -70,7 +70,7 @@ class Category
         global $wpdb;
         if(isset($this->id)) {
             $wpdb->delete(
-                esc_sql($wpdb->prefix.SECOEL_PREFIX."categories"),
+                esc_sql($wpdb->prefix.SEASONALCONTENT_PREFIX."categories"),
                 [
                     "id" => $this->id
                 ]

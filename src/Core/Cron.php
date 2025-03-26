@@ -5,7 +5,7 @@ namespace SeasonalContent\Core;
 class Cron extends Singleton
 {
 
-    const HOOK = SECOEL_PREFIX."update_current_category";
+    const HOOK = SEASONALCONTENT_PREFIX."update_current_category";
 
 
     private HookManager $hookManager;

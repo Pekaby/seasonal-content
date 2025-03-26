@@ -5,7 +5,7 @@ namespace SeasonalContent\Components\Content;
 class BackupContent
 {
     public static function hasMainBackup($postId):bool {
-        $backups = get_option(SECOEL_PREFIX.'elementor_main_data_backups', false);
+        $backups = get_option(SEASONALCONTENT_PREFIX.'elementor_main_data_backups', false);
         if(!$backups) return false;
         $backups = json_decode($backups);
 
@@ -20,14 +20,14 @@ class BackupContent
     }
 
     private static function getBackupRawData():array {
-        $backups = get_option(SECOEL_PREFIX.'elementor_main_data_backups', false);
+        $backups = get_option(SEASONALCONTENT_PREFIX.'elementor_main_data_backups', false);
         if(!$backups) return [];
         $backups = json_decode($backups);
         return $backups;
     }
 
     public static function getAllMainBackups():array {
-        $backups = get_option(SECOEL_PREFIX.'elementor_main_data_backups', false);
+        $backups = get_option(SEASONALCONTENT_PREFIX.'elementor_main_data_backups', false);
         if(!$backups) return [];
         $backups = json_decode($backups);
 
@@ -147,7 +147,7 @@ class BackupContent
         update_post_meta($backup->parentId, '_elementor_data', wp_slash( $backupElementor ));
         if(!$backuped) throw new \SeasonalContent\Core\Exceptions\BackupException('Can\'t load backup' . PHP_EOL);
 
-        // update_option(SECOEL_PREFIX.$postId."_current_season", 0); // it should be current season
+        // update_option(SEASONALCONTENT_PREFIX.$postId."_current_season", 0); // it should be current season
     }
 
 

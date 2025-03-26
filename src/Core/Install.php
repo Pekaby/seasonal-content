@@ -5,11 +5,11 @@ namespace SeasonalContent\Core;
 class Install
 {
     public static function install() {
-        if( !get_option(SECOEL_PREFIX . 'installed', false) ) {
+        if( !get_option(SEASONALCONTENT_PREFIX . 'installed', false) ) {
             $db = self::createDb();
             $cron = self::registerCron();
             if( $db && $cron ) {
-                update_option(SECOEL_PREFIX . 'installed', 1, false);
+                update_option(SEASONALCONTENT_PREFIX . 'installed', 1, false);
                 return;
             } 
         }
@@ -23,17 +23,17 @@ class Install
     public function uninstall() {
         global $wpdb;
 
-        delete_option(SECOEL_PREFIX . 'current_season');
-        delete_option(SECOEL_PREFIX . 'installed');
-        delete_option(SECOEL_PREFIX . 'elementor_main_data_backups');
+        delete_option(SEASONALCONTENT_PREFIX . 'current_season');
+        delete_option(SEASONALCONTENT_PREFIX . 'installed');
+        delete_option(SEASONALCONTENT_PREFIX . 'elementor_main_data_backups');
 
-        $categoryTable = $wpdb->prefix . SECOEL_PREFIX . 'categories';
+        $categoryTable = $wpdb->prefix . SEASONALCONTENT_PREFIX . 'categories';
 
         $wpdb->query("DROP TABLE `" . esc_sql($categoryTable) . "`");
         $wpdb->query(
             $wpdb->prepare(
                 "DELETE FROM {$wpdb->options} WHERE `option_name` LIKE %s;",
-                'secoel_%_current_season'
+                'seasonalcontent_%_current_season'
             )
         );
     }
@@ -41,7 +41,7 @@ class Install
     private static function createDb():bool{
         global $wpdb;
 
-        $tableName =  esc_sql($wpdb->prefix . SECOEL_PREFIX . 'categories');
+        $tableName =  esc_sql($wpdb->prefix . SEASONALCONTENT_PREFIX . 'categories');
         $charsetСollate = $wpdb->get_charset_collate();
 
         $sql = $sql = "CREATE TABLE $tableName (

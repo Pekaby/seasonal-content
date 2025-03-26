@@ -29,7 +29,7 @@ class ElementorComponent extends \SeasonalContent\Core\Singleton implements \Sea
         }
 
         $document->start_controls_section(
-            SECOEL_PREFIX.'seasonal_content',
+            SEASONALCONTENT_PREFIX.'seasonal_content',
             [
                 'label' => esc_html__( 'Seasonal Content', 'seasonal-content' ),
                 'tab' => \Elementor\Controls_Manager::TAB_SETTINGS,
@@ -37,30 +37,30 @@ class ElementorComponent extends \SeasonalContent\Core\Singleton implements \Sea
         );
     
         $document->add_control(
-            SECOEL_PREFIX.'restore_main_backup',
+            SEASONALCONTENT_PREFIX.'restore_main_backup',
             [
                 'label' => esc_html__( 'Restore main version', 'seasonal-content' ),
                 'type' => \Elementor\Controls_Manager::BUTTON,
-                'text' => "Восстановить",
-                'event' => SECOEL_PREFIX . 'restore_main_backup'
+                'text' => esc_html__("Restore", 'seasonal-content'),
+                'event' => SEASONALCONTENT_PREFIX . 'restore_main_backup'
             ]
         );
         $document->add_control(
-            SECOEL_PREFIX.'set_as_main_backup',
+            SEASONALCONTENT_PREFIX.'set_as_main_backup',
             [
                 'label' => esc_html__( 'Set as main version', 'seasonal-content' ),
                 'type' => \Elementor\Controls_Manager::BUTTON,
-                'text' => "Установить",
-                'event' => SECOEL_PREFIX . 'set_as_main_backup'
+                'text' => esc_html__("Set", 'seasonal-content'),
+                'event' => SEASONALCONTENT_PREFIX . 'set_as_main_backup'
             ]
         );
         $document->add_control(
-            SECOEL_PREFIX.'update_content',
+            SEASONALCONTENT_PREFIX.'update_content',
             [
                 'label' => esc_html__( 'Update content', 'seasonal-content' ),
                 'type' => \Elementor\Controls_Manager::BUTTON,
-                'text' => "Обновить",
-                'event' => SECOEL_PREFIX . 'update_content'
+                'text' => esc_html__("Update", 'seasonal-content'),
+                'event' => SEASONALCONTENT_PREFIX . 'update_content'
             ]
         );
     

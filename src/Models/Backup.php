@@ -13,22 +13,22 @@ class Backup
     public $createdAt;
 
     public function save():self  {
-        $backups = get_option(SECOEL_PREFIX.'elementor_main_data_backups', false);
+        $backups = get_option(SEASONALCONTENT_PREFIX.'elementor_main_data_backups', false);
         if(!$backups) {
             $data = [];
             $data[] = serialize($this);
-            update_option(SECOEL_PREFIX.'elementor_main_data_backups', json_encode($data, JSON_UNESCAPED_UNICODE));
+            update_option(SEASONALCONTENT_PREFIX.'elementor_main_data_backups', json_encode($data, JSON_UNESCAPED_UNICODE));
             return $this;
         }
 
         $backups = json_decode($backups);
         $backups[] = serialize($this);
-        update_option(SECOEL_PREFIX.'elementor_main_data_backups', json_encode($backups, JSON_UNESCAPED_UNICODE));
+        update_option(SEASONALCONTENT_PREFIX.'elementor_main_data_backups', json_encode($backups, JSON_UNESCAPED_UNICODE));
         return $this;
     }
 
     public static function getBackup($postId):self {
-        $backups = get_option(SECOEL_PREFIX.'elementor_main_data_backups', false);
+        $backups = get_option(SEASONALCONTENT_PREFIX.'elementor_main_data_backups', false);
         if(!$backups) {
             return new self();
         }
