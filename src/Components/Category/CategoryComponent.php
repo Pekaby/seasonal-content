@@ -39,6 +39,7 @@ class CategoryComponent implements \SeasonalContent\Components\Component
                 $wpdb->update($wpdb->prefix . SEASONALCONTENT_PREFIX . 'categories', (array) $category, ['id' => $category->id]);
                 continue;
             }
+            unset($category->id);
             $new_category = $wpdb->insert($wpdb->prefix . SEASONALCONTENT_PREFIX . 'categories', (array) $category);
             $category->id = ($new_category) ? $wpdb->insert_id : 0;
 
