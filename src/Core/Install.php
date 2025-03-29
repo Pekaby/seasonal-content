@@ -20,7 +20,7 @@ class Install
     }
 
 
-    public function uninstall() {
+    public static function uninstall() {
         global $wpdb;
 
         delete_option(SEASONALCONTENT_PREFIX . 'current_season');
