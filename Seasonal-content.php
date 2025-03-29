@@ -13,7 +13,6 @@ Tested up to: 6.7
 Elementor tested up to: 3.28.1
 Requires PHP: 7.4
 Text Domain: seasonal-content
-Domain Path: /languages
 */
 
 
