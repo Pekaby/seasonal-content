@@ -19,7 +19,6 @@ class ColumnBackground implements Type
     public function registerElementorControls($element, $section_id):void
     {
         if(empty($this->categories)) return;
-        error_log("It shouldnt run now!");
         $element->start_controls_section(
             SEASONALCONTENT_PREFIX.'background',
             [
