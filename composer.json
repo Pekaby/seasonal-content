@@ -1,0 +1,25 @@
+{
+    "name": "seasonalcontent/seasonal-content",
+    "description": "A WordPress plugin that changes content by seasons",
+    "type": "wordpress-plugin",
+    "license": "GNU  General Public License v3.0",
+    "autoload": {
+        "psr-4": {
+            "SeasonalContent\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Mikhail",
+            "email": "pekabycom@gmail.com"
+        }
+    ],
+    "require-dev": {
+    
+    },
+    "config": {
+        "allow-plugins": {
+            "symfony/flex": true
+        }
+    }
+}
