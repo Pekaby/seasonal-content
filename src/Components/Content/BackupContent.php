@@ -50,7 +50,7 @@ class BackupContent
         unset($postData->ID);
 
         $backupId = wp_insert_post( (array) $postData);
-        error_log("Main backup was created with ID " . $backupId);
+        
         if(!is_int($backupId) || !$backupId) throw new \SeasonalContent\Core\Exceptions\BackupException('Cannot create Main backup');
 
         update_post_meta($backupId, '_elementor_data', wp_slash( $elementor_data ));

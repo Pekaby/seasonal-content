@@ -66,9 +66,8 @@ class Plugin extends Singleton
 
         if(is_admin()){
             $this->hookManager->registerActions(
-                                         // DTO\Hook::set('init', [$this, 'loadTranslations']),
                                                 DTO\Hook::set('init', [$this, 'cronInit']),
-                                                DTO\Hook::set('plugins_loaded', [$this, 'admin']),
+                                                DTO\Hook::set('init', [$this, 'admin']),
                                                 DTO\Hook::set('admin_enqueue_scripts', [$this, 'enqueueScrips']),
                                                 DTO\Hook::set('admin_enqueue_scripts', [$this, 'enqueueStyles'])
                                                 );
