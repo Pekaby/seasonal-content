@@ -1,11 +1,13 @@
-=== Seasonal Content – Automate your Elementor content by season categories ===
-Tags: elementor, seasonal, content switcher, date based content, dynamic content, scheduled content, marketing, promotions 
+=== Seasonal Content â€“ Automate your Elementor content by season categories ===
+Tags: elementor, content scheduling, seasonal content, dynamic content, date based
 Requires at least: 5.8  
-Tested up to: 6.7.2  
+Tested up to: 6.8.1  
 Requires PHP: 7.4  
-Stable tag: 1.0.0  
+Stable tag: 1.1.0  
 License: GNU  General Public License v3.0
 License URI: https://www.gnu.org/licenses/gpl-3.0.html  
+
+Seasonal Content is a flexible Elementor addon that keeps your content fresh and in season — all year round.
 
 == Description ==
 
@@ -35,7 +37,7 @@ All content is handled via Elementor interface — no custom post types, no shor
 == Installation ==
 
 1. Upload the plugin files to the `/wp-content/plugins/seasonal-content/` directory, or install the plugin through the WordPress plugins screen directly.
-2. Activate the plugin through the ‘Plugins’ screen in WordPress.
+2. Activate the plugin through the *Plugins* screen in WordPress.
 3. Go to *Seasonal Content* to define your seasonal categories.
 4. Select supported widget in Elementor to define seasonal content
 
@@ -65,13 +67,13 @@ Yes, background images of parent sections can be changed based on date.
 * Dynamic content switching in Elementor
 * Lightweight and SEO-friendly
 
-== Upgrade Notice ==
-
-= 1.0.0 =
-First public release. Install to start using seasonal content in your Elementor site.
+= 1.1.0 =
+* Reworked the backup system for seasonal posts for improved stability
+* Fixed a bug where categories were not being saved correctly
 
 == Credits ==
 
 Created by Mikhail  
 More info: [https://seasonalcontent.com](https://seasonalcontent.com)  
-Telegram: [https://t.me/seasonalcontent](https://t.me/seasonalcontent)
+Telegram channel: [https://t.me/seasonalcontent](https://t.me/seasonalcontent)
+GitHub: [https://github.com/Pekaby/seasonal-content](https://github.com/Pekaby/seasonal-content)

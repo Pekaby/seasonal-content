@@ -25,7 +25,6 @@ class Install
 
         delete_option(SEASONALCONTENT_PREFIX . 'current_season');
         delete_option(SEASONALCONTENT_PREFIX . 'installed');
-        delete_option(SEASONALCONTENT_PREFIX . 'elementor_main_data_backups');
 
         $categoryTable = $wpdb->prefix . SEASONALCONTENT_PREFIX . 'categories';
 
