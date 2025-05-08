@@ -80,10 +80,7 @@ class ContentComponent extends \SeasonalContent\Core\Singleton implements Compon
 
         $backupData = get_post_meta($backup->postId, '_elementor_data', true);
         $currentData = get_post_meta( $postId, '_elementor_data', true );
-        error_log("backup_data ");
-        error_log(print_r($backupData, true));
-        error_log("Current Data");
-        error_log(print_r($currentData, true));
+        
         $backupWithNewSettings = ContentChanger::changeSettings( wp_unslash(json_decode($currentData, true)), wp_unslash(json_decode($backupData, true)));
     
         update_post_meta($backup->postId, '_elementor_data', wp_slash(json_encode($backupWithNewSettings, JSON_UNESCAPED_UNICODE)));
