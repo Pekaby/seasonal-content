@@ -30,8 +30,10 @@ class ContentChanger
     }
 
     public static function changeSettings($elementorContent, $backupContent) {
+        error_log(gettype($backupContent));
         foreach($elementorContent as $contentKey => &$contentData) {
-            if(array_key_exists( 'settings', $contentData ) && array_key_exists( 'settings', $backupContent[$contentKey] )) {
+            if(array_key_exists( 'settings', $contentData ) 
+            && array_key_exists( 'settings', $backupContent[$contentKey] )) {
                 
                 foreach ($contentData['settings'] as $param => $value) {
                     if(strncmp($param, SEASONALCONTENT_PREFIX, strlen(SEASONALCONTENT_PREFIX)) === 0) {

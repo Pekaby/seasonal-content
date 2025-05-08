@@ -7,10 +7,10 @@ Author: Mikhail
 Author URI: https://t.me/pekaby/
 License: GPL v3.0
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
-Version: 1.0.0
+Version: 1.1.0
 Requires at least: 5.8
-Tested up to: 6.7.2
-Elementor tested up to: 3.28.1
+Tested up to: 6.8.1
+Elementor tested up to: 3.28.4
 Requires PHP: 7.4
 Text Domain: seasonal-content
 */

@@ -13,34 +13,21 @@ class Backup
     public $createdAt;
 
     public function save():self  {
-        $backups = get_option(SEASONALCONTENT_PREFIX.'elementor_main_data_backups', false);
-        if(!$backups) {
-            $data = [];
-            $data[] = serialize($this);
-            update_option(SEASONALCONTENT_PREFIX.'elementor_main_data_backups', json_encode($data, JSON_UNESCAPED_UNICODE));
-            return $this;
-        }
-
-        $backups = json_decode($backups);
-        $backups[] = serialize($this);
-        update_option(SEASONALCONTENT_PREFIX.'elementor_main_data_backups', json_encode($backups, JSON_UNESCAPED_UNICODE));
+        $status = update_post_meta($this->parentId, '_seasonalcontent_main_backup', wp_slash( json_encode($this, JSON_UNESCAPED_UNICODE) ));
+        if(!$status) throw new \SeasonalContent\Core\Exceptions\BackupException('Cannot save backup');
         return $this;
     }
 
-    public static function getBackup($postId):self {
-        $backups = get_option(SEASONALCONTENT_PREFIX.'elementor_main_data_backups', false);
-        if(!$backups) {
-            return new self();
+    public static function getBackup(int $postId) {
+        $data = wp_unslash( get_post_meta($postId, '_seasonalcontent_main_backup', true) );
+        if( !$data ) return false;
+  
+        $std_backup = json_decode($data);
+        $backup = self::init();
+        foreach ($std_backup as $field => $value) {
+            $backup->$field = $value;
         }
-
-        $backups = json_decode($backups);
-        foreach ($backups as &$backup) {
-            $tmpBackup = unserialize($backup);
-            if($tmpBackup->parentId == $postId) {
-                return $tmpBackup;
-            }
-        }   
-
+        return $backup;
     }
 
 

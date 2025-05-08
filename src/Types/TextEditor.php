@@ -21,7 +21,7 @@ class TextEditor implements Type
 
     public function registerElementorControls($element, $args):void {
         if(empty($this->categories)) return;
-        
+
         $element->start_controls_section(
             SEASONALCONTENT_PREFIX.'text_editor',
             [

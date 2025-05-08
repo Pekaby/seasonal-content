@@ -109,9 +109,11 @@ if(empty($categories)){
             "class"           => true,
             "placeholder"     => true,
             "value"           => true,
+            "data-id"         => true,
         ],
         'button' => [
             "class"           => true,
+            "data-id"         => true,
         ],
         'svg'   => [
             'class'           => true,

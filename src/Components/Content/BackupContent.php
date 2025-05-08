@@ -4,29 +4,17 @@ namespace SeasonalContent\Components\Content;
 
 class BackupContent
 {
-    public static function hasMainBackup($postId):bool {
-        $backups = get_option(SEASONALCONTENT_PREFIX.'elementor_main_data_backups', false);
-        if(!$backups) return false;
-        $backups = json_decode($backups);
+    public static function hasMainBackup(int $postId): bool {
+        $post_backup = wp_unslash( get_post_meta($postId, '_seasonalcontent_main_backup', true) );
+        if( !$post_backup ) return false;
+  
+        $backup = json_decode($post_backup);
 
-        foreach ($backups as $backup_serelized) {
-            $backup = unserialize($backup_serelized, [\SeasonalContent\Models\Backup::class]);
-            if($backup->parentId === $postId){
-                return true;
-            }
-        }
-        
+        if($backup->parentId === $postId) return true;
         return false;
     }
 
-    private static function getBackupRawData():array {
-        $backups = get_option(SEASONALCONTENT_PREFIX.'elementor_main_data_backups', false);
-        if(!$backups) return [];
-        $backups = json_decode($backups);
-        return $backups;
-    }
-
-    public static function getAllMainBackups():array {
+    public static function getAllMainBackups(): array {
         $backups = get_option(SEASONALCONTENT_PREFIX.'elementor_main_data_backups', false);
         if(!$backups) return [];
         $backups = json_decode($backups);
@@ -39,15 +27,14 @@ class BackupContent
         return $mainBackups;
     }
 
-    public static function getMainBackup($postId) {
-        $backups = self::getAllMainBackups();
+    public static function getMainBackup(int $postId) {
+        $post_backup = wp_unslash( get_post_meta($postId, '_seasonalcontent_main_backup', true) );
+        if( !$post_backup ) return false;
 
-        foreach ($backups as $key => $backup) {
-            if($backup->parentId == $postId) {
-                return $backup;
-            }
-        }
+        $backup = json_decode($post_backup);
 
+        if($backup->parentId === $postId) return $backup;
+        return false;
     }
 
     public static function createMainBackup($postId): \SeasonalContent\Models\Backup {
@@ -63,6 +50,7 @@ class BackupContent
         unset($postData->ID);
 
         $backupId = wp_insert_post( (array) $postData);
+        error_log("Main backup was created with ID " . $backupId);
         if(!is_int($backupId) || !$backupId) throw new \SeasonalContent\Core\Exceptions\BackupException('Cannot create Main backup');
 
         update_post_meta($backupId, '_elementor_data', wp_slash( $elementor_data ));
@@ -73,8 +61,6 @@ class BackupContent
                                                     ->setCreatedAt(gmdate("Y-m-d H:i:s"))
                                                     ->save();
 
-
-        
         return $backup;                                                
     }
 
