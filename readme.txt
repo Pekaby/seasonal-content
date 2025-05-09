@@ -1,4 +1,4 @@
-=== Seasonal Content â€“ Automate your Elementor content by season categories ===
+=== Seasonal Content — Automate your Elementor content by season categories ===
 Tags: elementor, content scheduling, seasonal content, dynamic content, date based
 Requires at least: 5.8  
 Tested up to: 6.8.1  

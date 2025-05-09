@@ -31,7 +31,7 @@ class Title implements Type
         );
         foreach ($this->categories as $category) {
             $element->add_control(
-                SEASONALCONTENT_PREFIX. $category->slug . self::CONTROL_NAME,
+                SEASONALCONTENT_PREFIX. $category->id . self::CONTROL_NAME,
                 [
                     'type' => \Elementor\Controls_Manager::TEXTAREA,
                     'label' => esc_html( $category->title ),
@@ -43,9 +43,13 @@ class Title implements Type
     }
 
     public function changeElement($element, \SeasonalContent\Models\Category $category):object {
-        $property = SEASONALCONTENT_PREFIX . $category->slug . self::CONTROL_NAME;
+        $property = SEASONALCONTENT_PREFIX . $category->id . self::CONTROL_NAME;
         if( property_exists($element->settings, $property) && !empty(@$element->settings->$property) ) {
             $element->settings->editor = $element->settings->$property;
+        }
+        if( property_exists($element->settings, "title") 
+            && property_exists($element->settings, $property) && !empty(@$element->settings->$property) ) {
+            $element->settings->title = $element->settings->$property;
         }
         return $element;
     }
