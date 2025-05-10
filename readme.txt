@@ -72,7 +72,7 @@ Not at all. It uses just two WordPress options and no dynamic logic on the front
 * Reworked how the current season is stored for better stability
 * Fixed an issue where content could be lost after renaming a category
 * Now Addons marked as "in development"
-* Removed the ability to set seasonal content as the background of sections
+* Removed the ability to set seasonal content as the background of sections and columns
 
 == Credits ==
 

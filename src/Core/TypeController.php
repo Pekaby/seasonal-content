@@ -40,7 +40,6 @@ class TypeController {
     }
 
     public static function registerBasicTypes() {
-        self::registerType('SectionBackground', \SeasonalContent\Types\SectionBackground::class);
         self::registerType('TextEditor', \SeasonalContent\Types\TextEditor::class);
         self::registerType('Title', \SeasonalContent\Types\Title::class);
     }
