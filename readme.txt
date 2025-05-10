@@ -3,7 +3,7 @@ Tags: elementor, content scheduling, seasonal content, dynamic content, date bas
 Requires at least: 5.8  
 Tested up to: 6.8.1  
 Requires PHP: 7.4  
-Stable tag: 1.1.0  
+Stable tag: 1.2.0  
 License: GNU  General Public License v3.0
 License URI: https://www.gnu.org/licenses/gpl-3.0.html  
 
@@ -56,9 +56,6 @@ Yes! The content switch happens visually and does not rely on database queries o
 = Will this slow down my site? =  
 Not at all. It uses just two WordPress options and no dynamic logic on the frontend.
 
-= Can I add images for background? =  
-Yes, background images of parent sections can be changed based on date.
-
 == Changelog ==
 
 = 1.0.0 =
@@ -70,6 +67,12 @@ Yes, background images of parent sections can be changed based on date.
 = 1.1.0 =
 * Reworked the backup system for seasonal posts for improved stability
 * Fixed a bug where categories were not being saved correctly
+
+= 1.2.0 =
+* Reworked how the current season is stored for better stability
+* Fixed an issue where content could be lost after renaming a category
+* Now Addons marked as "in development"
+* Removed the ability to set seasonal content as the background of sections
 
 == Credits ==
 

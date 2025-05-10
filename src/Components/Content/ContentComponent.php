@@ -40,8 +40,15 @@ class ContentComponent extends \SeasonalContent\Core\Singleton implements Compon
 
     private function getPageSeason() {
         if(isset($this->pageSeason)) return $this->pageSeason;
-        $this->pageSeason = get_option(SEASONALCONTENT_PREFIX.$this->postId."_current_season", 0);
+
+        $season = get_post_meta($this->postId, '_' . SEASONALCONTENT_PREFIX . 'current_season', true);
+        $this->pageSeason = (!$season) ? 0 : $season;
+
         return $this->pageSeason;
+    }
+
+    private function setPageSeason(int $categoryId) {
+        $result = update_post_meta($this->postId, '_' . SEASONALCONTENT_PREFIX . 'current_season', $categoryId);
     }
 
     private function changeNeed():bool {
@@ -65,7 +72,7 @@ class ContentComponent extends \SeasonalContent\Core\Singleton implements Compon
         
         update_post_meta($this->postId, '_elementor_data', wp_slash(json_encode($changed_elementor_data, JSON_UNESCAPED_UNICODE)));
 
-        update_option(SEASONALCONTENT_PREFIX.$this->postId."_current_season", $category->id, true);
+        $this->setPageSeason($category->id);
     }
 
     public static function saveData($postId) {

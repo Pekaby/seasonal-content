@@ -12,7 +12,6 @@ class ContentChanger
         self::$types = $types;
     }
     public static function change($elementorContent, $category) {
-        // var_dump($elementorContent);
         foreach (@$elementorContent as &$element) {
             if(gettype($element->settings) === 'object'){
                 foreach (self::$types as $type => $class) {
@@ -20,7 +19,6 @@ class ContentChanger
                     $element = $type_instance->changeElement($element, $category);
                 }
             }
-            // $element->settings = self::escape($element->settings);
 
             if(isset($element->elements) && !empty($element->elements)){
                 $element->elements = self::change($element->elements, $category);
@@ -41,7 +39,7 @@ class ContentChanger
 
             }
 
-            if( ( is_array($contentData['elements']) && !empty($contentData['elements']) )
+            if( isset($backupContent[$contentKey]) && ( is_array($contentData['elements']) && !empty($contentData['elements']) )
                 && ( is_array($backupContent[$contentKey]['elements']) && !empty($backupContent[$contentKey]['elements']) )) {
                     $backupContent[$contentKey]['elements'] = self::changeSettings($contentData['elements'], $backupContent[$contentKey]['elements']);
             }

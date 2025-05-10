@@ -68,7 +68,7 @@ class Ajax extends Singleton
                                                                              ->setStartDate($category['date_start'])
                                                                              ->setEndDate($category['date_end'])
                                                                              ->setCreatedBy(wp_get_current_user()->ID)
-                                                                             ->setId((int) $category['id']);
+                                                                             ->setId((int) @$category['id']);
         }
         $this->getComponent('CategoryComponent')->saveCategories();
         wp_send_json_success((array) $this->getComponent('CategoryComponent')->categories, 200, JSON_UNESCAPED_UNICODE); 
