@@ -27,12 +27,12 @@ class Install
         delete_option(SEASONALCONTENT_PREFIX . 'installed');
 
         $categoryTable = $wpdb->prefix . SEASONALCONTENT_PREFIX . 'categories';
-
         $wpdb->query("DROP TABLE `" . esc_sql($categoryTable) . "`");
+        
         $wpdb->query(
             $wpdb->prepare(
-                "DELETE FROM {$wpdb->options} WHERE `option_name` LIKE %s;",
-                'seasonalcontent_%_current_season'
+                "DELETE FROM {$wpdb->postmeta} WHERE `meta_key` = %s;",
+                '_' . SEASONALCONTENT_PREFIX . "current_season"
             )
         );
     }
