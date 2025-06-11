@@ -2,7 +2,7 @@
 
 namespace SeasonalContent\DTO;
 
-class Hook 
+class Hook implements DTO
 {
 
     public string $name;

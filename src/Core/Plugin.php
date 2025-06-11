@@ -35,28 +35,20 @@ class Plugin extends Singleton
 
         $this->hookManager = ( null !== $hookManager ) ? $hookManager : HookManager::getInstance();
         $this->addonManager = AddonManager::getInstance();
+        $this->addonManager->setHookManager($this->hookManager);
 
         if(!$this->hookManager->didAction('elementor/loaded')){
             $this->hookManager->registerActions(DTO\Hook::set('admin_notices', [\SeasonalContent\Support\Notices::class, 'ElementorNotActivated']));
             return;
         }
 
-        $this->hookManager->doAction(DTO\Hook::set(
-            "SeasonalContent/beforeLoadAddons"
-        ), $this->hookManager);
-        
-        $this->hookManager->registerActions(DTO\Hook::set(
-            'SeasonalContent/loadAddons',
-            [$this->addonManager, 'loadAddons']
-        ));
-
         $this->hookManager->registerActions(
-                                            DTO\Hook::set('plugins_loaded', [TypeController::class, 'init']),
                                             DTO\Hook::set('plugins_loaded', [$this->addonManager, 'initAddons']),
-                                            DTO\Hook::set(
-                                                'SeasonalContent/registerTypes',
-                                                [TypeController::class, 'registerBasicTypes']
-                                            ),
+                                            DTO\Hook::set('plugins_loaded', [TypeController::class, 'init']),
+                                            // DTO\Hook::set(
+                                            //     'SeasonalContent/registerTypes',
+                                            //     [TypeController::class, 'registerBasicTypes']
+                                            // ),
                                             DTO\Hook::set(
                                                 Cron::HOOK,
                                                 [\SeasonalContent\Components\Category\CategoryComponent::class, 'updateCurrentCategory']

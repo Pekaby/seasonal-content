@@ -31,7 +31,12 @@ class AddonComponent extends \SeasonalContent\Core\Singleton implements Componen
         $loadedAddons = \SeasonalContent\Core\AddonManager::getInstance()->getAddons();
         foreach ($loadedAddons as $slug => $addon) {
             if( !array_key_exists($slug, $this->installed) ) {
-                $this->installed[$slug] = $addon::getTitle();
+                $this->installed[$slug] = [
+                    'title' => $addon->getTitle(),
+                    'version' => $addon->getVersion(),
+                    'description' => $addon->getDescription(),
+                    'url' => 'https://t.me/Pekaby'
+                ];
             }
         }
     }
@@ -59,6 +64,12 @@ class AddonComponent extends \SeasonalContent\Core\Singleton implements Componen
 
             $this->addonsInformation[__('aviable', 'seasonal-content')][$slug] = $addonInformation;
         }
+        foreach ($this->installed as $slug => $addonInformation) {
+            if(!array_key_exists($slug, $this->aviableAddons)) {
+                $this->addonsInformation[__('activated', 'seasonal-content')][$slug] = $addonInformation; 
+            }
+        }
+        ksort($this->addonsInformation);
         
     }
 

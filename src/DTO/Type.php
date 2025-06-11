@@ -2,7 +2,7 @@
 
 namespace SeasonalContent\DTO;
 
-class Type 
+class Type implements DTO
 {
 
     public string $name;

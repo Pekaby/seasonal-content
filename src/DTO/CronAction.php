@@ -2,7 +2,7 @@
 
 namespace SeasonalContent\DTO;
 
-class CronAction 
+class CronAction implements DTO
 {
 
     public string $hookName;

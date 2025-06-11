@@ -1,6 +1,7 @@
 <?php 
 
 namespace SeasonalContent\Core;
+use SeasonalContent\DTO;
 
 class AddonManager extends Singleton
 {
@@ -23,10 +24,20 @@ class AddonManager extends Singleton
 
 
     public function initAddons() {
+        $this->hookManager->doAction(DTO\Hook::set(
+            "SeasonalContent/beforeLoadAddons"
+        ), $this->hookManager);
+
+        $this->hookManager->doAction( 'SeasonalContent/loadAddons', $this->hookManager );
+
+        // $this->hookManager->registerActions(DTO\Hook::set(
+        //     'SeasonalContent/loadAddons',
+        //     [$this, 'loadAddons']
+        // ));
         do_action('SeasonalContent/initAddons');
     }
 
-    public function loadAddons(Addon $addon) {
+    public function loadAddon(Addon $addon) {
         if( !in_array($addon->getSlug(), $this->addons)){
             $this->addons[$addon->getSlug()] = $addon;
         }

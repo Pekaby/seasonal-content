@@ -2,7 +2,7 @@
 
 namespace SeasonalContent\DTO;
 
-class Filter 
+class Filter implements DTO
 {
 
     public string $name;

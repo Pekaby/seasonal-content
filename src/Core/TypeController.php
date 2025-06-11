@@ -36,10 +36,21 @@ class TypeController {
     }
 
     public static function init(): void {
-        do_action('SeasonalContent/registerTypes');
+        do_action('SeasonalContent/registerTypes', self::class);
+        self::registerBasicTypes();
+        self::registerAddonsTypes();
     }
 
-    public static function registerBasicTypes() {
+    private static function registerAddonsTypes() {
+        $addons = AddonManager::getInstance()->getAddons();
+        foreach ($addons as $addon) {
+            self::registerTypes(
+                ...$addon->getTypes()
+            );
+        }
+    }
+
+    private static function registerBasicTypes() {
         self::registerType('TextEditor', \SeasonalContent\Types\TextEditor::class);
         self::registerType('Title', \SeasonalContent\Types\Title::class);
     }
